@@ -1,0 +1,9 @@
+{
+  "name": "oryzem-starter",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "npx http-server . -o",
+    "start:python": "python -m http.server 8000"
+  }
+}
