@@ -10,16 +10,9 @@ import {
 } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Simple interactive button behavior
+  // Getting UI elements
   const msg = document.getElementById('message');
   const btn = document.getElementById('clickMe');
-  if (msg && btn) {
-    btn.addEventListener('click', () => {
-      msg.textContent = `Button clicked at ${new Date().toLocaleTimeString()}`;
-    });
-  }
-
-  // Auth UI elements
   const emailInput = document.getElementById('email');
   const passwordInput = document.getElementById('password');
   const signUpBtn = document.getElementById('signUp');
@@ -27,6 +20,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const signOutBtn = document.getElementById('signOut');
   const googleSignInBtn = document.getElementById('googleSignIn'); // 👈 novo
   const authStatus = document.getElementById('authStatus');
+
+  // Event Listeners
+    btn.addEventListener('click', () => {
+      msg.textContent = `Button clicked at ${new Date().toLocaleTimeString()}`;
+    });
+    signUpBtn?.addEventListener('click', signUp);
+    signInBtn?.addEventListener('click', signIn);
+    signOutBtn?.addEventListener('click', signOutUser);
+    //googleSignInBtn?.addEventListener('click', signInWithGoogle); // 👈 novo
+    googleSignInBtn?.addEventListener('click', () => {
+      msg.textContent = `Botão google clicado`;
+    });
 
   // Firebase Config (OK)
   const firebaseConfig = {
@@ -92,17 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error("Google Sign-In Error:", err);
       alert(err.message || err);
     }
-  }
-
-  // Event Listeners
-  signUpBtn?.addEventListener('click', signUp);
-  signInBtn?.addEventListener('click', signIn);
-  signOutBtn?.addEventListener('click', signOutUser);
-  //googleSignInBtn?.addEventListener('click', signInWithGoogle); // 👈 novo
-  googleSignInBtn?.addEventListener("click", () => {
-  authStatus.textContent = `Botão clicado`;
-  });
-
+    }
 
   // Auth State Listener
   onAuthStateChanged(auth, (user) => {
