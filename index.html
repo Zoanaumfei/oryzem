@@ -11,9 +11,24 @@
     <h1>Oryzem — Starter Project</h1>
   </header>
   <main>
-    <p id="message">Hello, world!</p>
-    <button id="clickMe">Click me</button>
+    <section id="interactive">
+      <p id="message">Hello, world!</p>
+      <button id="clickMe">Click me</button>
+    </section>
+
+    <section id="auth">
+      <h2>Authentication</h2>
+      <input id="email" type="email" placeholder="Email" />
+      <input id="password" type="password" placeholder="Password" />
+      <div>
+        <button id="signUp">Sign Up</button>
+        <button id="signIn">Sign In</button>
+        <button id="signOut">Sign Out</button>
+      </div>
+      <p id="authStatus">Signed out</p>
+    </section>
+
   </main>
-  <script src="src/js/main.js" defer></script>
+  <script type="module" src="src/js/main.js"></script>
 </body>
 </html>
