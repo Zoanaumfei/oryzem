@@ -9,8 +9,8 @@ import {
   signInWithPopup
 } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 
+
 document.addEventListener('DOMContentLoaded', () => {
-  // Getting UI elements
   const msg = document.getElementById('message');
   const btn = document.getElementById('clickMe');
   const emailInput = document.getElementById('email');
@@ -20,18 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const signOutBtn = document.getElementById('signOut');
   const googleSignInBtn = document.getElementById('googleSignIn'); 
   const authStatus = document.getElementById('authStatus');
-
-  // Event Listeners
-    btn.addEventListener('click', () => {
-      msg.textContent = `Button clicked at ${new Date().toLocaleTimeString()}`;
-    });
-    signUpBtn.addEventListener('click', signUp);
-    signInBtn.addEventListener('click', signIn);
-    signOutBtn.addEventListener('click', signOutUser);
-    //googleSignInBtn?.addEventListener('click', signInWithGoogle); // 👈 novo
-    googleSignInBtn.addEventListener('click', () => {
+  if (!msg || !btn) return;
+  btn.addEventListener('click', () => {
+    msg.textContent = `Button clicked at ${new Date().toLocaleTimeString()}`;
+  });
+  googleSignInBtn.addEventListener('click', () => {
       msg.textContent = `Botão google clicado`;
-    });
+  });
+});
 
   // Firebase Config (OK)
   const firebaseConfig = {
@@ -107,4 +103,4 @@ document.addEventListener('DOMContentLoaded', () => {
       authStatus.textContent = 'Signed out';
     }
   });
-});
+
