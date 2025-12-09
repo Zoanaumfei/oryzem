@@ -18,18 +18,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const signUpBtn = document.getElementById('signUp');
   const signInBtn = document.getElementById('signIn');
   const signOutBtn = document.getElementById('signOut');
-  const googleSignInBtn = document.getElementById('googleSignIn'); // 👈 novo
+  const googleSignInBtn = document.getElementById('googleSignIn'); 
   const authStatus = document.getElementById('authStatus');
 
   // Event Listeners
     btn.addEventListener('click', () => {
       msg.textContent = `Button clicked at ${new Date().toLocaleTimeString()}`;
     });
-    signUpBtn?.addEventListener('click', signUp);
-    signInBtn?.addEventListener('click', signIn);
-    signOutBtn?.addEventListener('click', signOutUser);
+    signUpBtn.addEventListener('click', signUp);
+    signInBtn.addEventListener('click', signIn);
+    signOutBtn.addEventListener('click', signOutUser);
     //googleSignInBtn?.addEventListener('click', signInWithGoogle); // 👈 novo
-    googleSignInBtn?.addEventListener('click', () => {
+    googleSignInBtn.addEventListener('click', () => {
       msg.textContent = `Botão google clicado`;
     });
 
