@@ -24,9 +24,18 @@ document.addEventListener('DOMContentLoaded', () => {
   btn.addEventListener('click', () => {
     msg.textContent = `Button clicked at ${new Date().toLocaleTimeString()}`;
   });
-  googleSignInBtn.addEventListener('click', () => {
-      msg.textContent = `Botão google clicado`;
-  });
+  if (googleSignInBtn) {
+    googleSignInBtn.addEventListener('click', signInWithGoogle);
+  }
+  if (signUpBtn) {
+    signUpBtn.addEventListener('click', signUp);
+  }
+  if (signInBtn) {
+    signInBtn.addEventListener('click', signIn);
+  }
+  if (signOutBtn) {
+    signOutBtn.addEventListener('click', signOutUser);
+  }
 });
 
   // Firebase Config (OK)
