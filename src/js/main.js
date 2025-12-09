@@ -98,7 +98,11 @@ document.addEventListener('DOMContentLoaded', () => {
   signUpBtn?.addEventListener('click', signUp);
   signInBtn?.addEventListener('click', signIn);
   signOutBtn?.addEventListener('click', signOutUser);
-  googleSignInBtn?.addEventListener('click', signInWithGoogle); // 👈 novo
+  //googleSignInBtn?.addEventListener('click', signInWithGoogle); // 👈 novo
+  googleSignInBtn?.addEventListener("click", () => {
+  authStatus.textContent = `Botão clicado`;
+  });
+
 
   // Auth State Listener
   onAuthStateChanged(auth, (user) => {
