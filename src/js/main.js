@@ -21,11 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // TODO: Replace with your Firebase project's config
   const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    // ...other config values
-  };
+  apiKey: "AIzaSyCpx6LjIAgSd6qguI_i-2PfrAbnd4MyXh8",
+  authDomain: "oryzemfirebase.firebaseapp.com",
+  projectId: "oryzemfirebase",
+  storageBucket: "oryzemfirebase.firebasestorage.app",
+  messagingSenderId: "892357545518",
+  appId: "1:892357545518:web:95824e96df6800651759bf",
+  measurementId: "G-8RP33FMB2F"
+};
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
