@@ -6,33 +6,33 @@
   <title>Oryzem - Starter</title>
   <link rel="stylesheet" href="src/css/styles.css">
 </head>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Oryzem — Choose a Page</title>
+  <link rel="stylesheet" href="src/css/styles.css">
+  <style>
+    main { padding: 2rem; display: flex; flex-direction: column; gap: 1rem; align-items: center; }
+    .option { padding: 1.25rem 2rem; font-size: 1.125rem; cursor: pointer; }
+  </style>
+</head>
 <body>
   <header>
-    <h1>Oryzem — Starter Project</h1>
+    <h1>Welcome to Oryzem</h1>
   </header>
   <main>
-    <section id="interactive">
-      <p id="message">Hello, world!</p>
-      <button id="clickMe">Click me</button>
-    </section>
-
-    <section id="auth">
-      <h2>Authentication</h2>
-      <input id="email" type="email" placeholder="Email" />
-      <input id="password" type="password" placeholder="Password" />
-      <div>
-        <button id="signUp">Sign Up</button>
-        <button id="signIn">Sign In</button>
-        <button id="signOut">Sign Out</button>
-      </div>
-      <div style="margin-top: 10px;">
-        <button id="googleSignIn">Sign in with Google</button>
-      </div>
-      <p id="authStatus">Signed out</p>
-    </section>
-
+    <p>Choose a profile page:</p>
+    <div>
+      <a href="vand.html"><button class="option">Vanderson</button></a>
+    </div>
+    <div>
+      <a href="rob.html"><button class="option">Roberth</button></a>
+    </div>
   </main>
-  <script type="module" src="src/js/main.js"></script>
 </body>
 </html>
+</body>
 
+</html>
