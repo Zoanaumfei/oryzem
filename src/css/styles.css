@@ -1,18 +1,77 @@
+/* === RESET SIMPLES === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* === ESTILO GERAL === */
 body {
   font-family: Arial, Helvetica, sans-serif;
-  margin: 2rem;
-  background: #f9f9f9;
+  background: #f5f6fa; /* fundo mais suave */
   color: #222;
+  
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-button {
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  border: 1px solid #ccc;
+/* === HEADER === */
+header h1 {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  color: #333;
+  text-align: center;
+}
+
+/* === CONTAINER PRINCIPAL === */
+main {
   background: #fff;
+  padding: 2rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+  min-width: 260px;
 }
 
+/* === TEXTO === */
+main p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: #444;
+}
+
+/* === BOTÕES === */
+button.option {
+  padding: 0.75rem 1.4rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  width: 160px;
+
+  background: #4c90ff;
+  color: white;
+  font-weight: bold;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+/* Efeito ao passar o mouse */
+button.option:hover {
+  background: #2f6de4;
+  transform: translateY(-2px);
+}
+
+/* Remover sublinhado do link */
+a {
+  text-decoration: none;
+}
+
+/* === ELEMENTOS OPCIONAIS JÁ EXISTENTES === */
 #message {
   margin-bottom: 1rem;
 }
