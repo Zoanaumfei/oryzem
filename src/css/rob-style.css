@@ -17,6 +17,23 @@ main {
     text-align: center;
 }
 
+.btn-voltar{
+display: inline-block;
+padding: 0.75rem 1.4rem;
+background: #00897b;
+color: #ffffff;
+text-decoration: none;
+border-radius: 8px;
+font-weight: bold;
+cursor: pointer;
+transition: 0.2s ease;
+}
+
+.btn-voltar:hover { /* Efeito de passar o mouse */
+background: #004d40;
+transform: translateY(-2px);
+}
+
 button.option {
     background: #e0d42c; /*cor diferente para os botoes */
 }
