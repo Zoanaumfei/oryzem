@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste API Oryzem - POST Endpoint</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 600px;
+            padding: 40px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .api-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #f8f9fa;
+        }
+        
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ccc;
+            animation: pulse 2s infinite;
+        }
+        
+        .status-indicator.active {
+            background: #4CAF50;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 18px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #666;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .result {
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            display: none;
+            border-left: 5px solid #667eea;
+        }
+        
+        .result h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .result pre {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .success {
+            border-left-color: #4CAF50;
+        }
+        
+        .error {
+            border-left-color: #f44336;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .endpoint-info {
+            background: #f0f7ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            color: #2c5282;
+        }
+        
+        .endpoint-info code {
+            background: #e6f7ff;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧪 Teste API Oryzem</h1>
+            <p>Teste o endpoint POST da sua API REST</p>
+        </div>
+        
+        <div class="api-status">
+            <div class="status-indicator" id="statusIndicator"></div>
+            <span id="statusText">Verificando status da API...</span>
+        </div>
+        
+        <div class="endpoint-info">
+            <strong>📡 Endpoint sendo testado:</strong><br>
+            <code>POST https://oryzem-backend.onrender.com/api/v1/items</code>
+        </div>
+        
+        <div class="form-group">
+            <label for="partNumberID">🔢 PartNumberID *</label>
+            <input type="text" id="partNumberID" placeholder="Ex: PN-001, ABC-123-XYZ" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="supplierID">🏭 SupplierID *</label>
+            <input type="text" id="supplierID" placeholder="Ex: SUP-001, FORNECEDOR-A" required>
+        </div>
+        
+        <div class="buttons">
+            <button class="btn-primary" onclick="sendPostRequest()">
+                🚀 Enviar POST Request
+            </button>
+            <button class="btn-secondary" onclick="testGetRequest()">
+                🔍 Testar GET Request
+            </button>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Enviando requisição para a API...</p>
+            <small>Pode levar alguns segundos se o serviço estiver hibernando</small>
+        </div>
+        
+        <div class="result" id="result">
+            <h3>📦 Resposta da API:</h3>
+            <pre id="responseData"></pre>
+            <p style="margin-top: 15px; font-size: 14px;" id="responseTime"></p>
+        </div>
+        
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #888; text-align: center;">
+            <p>🌐 Frontend: <strong>oryzem.com</strong> | 🔧 Backend: <strong>oryzem-backend.onrender.com</strong></p>
+            <p>🛠️ Esta página testa a integração entre seu frontend e a API Spring Boot com DynamoDB</p>
+        </div>
+    </div>
+
+    <script>
+        // Verificar status da API ao carregar a página
+        document.addEventListener('DOMContentLoaded', checkApiStatus);
+        
+        // Elementos DOM
+        const statusIndicator = document.getElementById('statusIndicator');
+        const statusText = document.getElementById('statusText');
+        const loading = document.getElementById('loading');
+        const result = document.getElementById('result');
+        const responseData = document.getElementById('responseData');
+        const responseTime = document.getElementById('responseTime');
+        
+        async function checkApiStatus() {
+            try {
+                const startTime = Date.now();
+                const response = await fetch('https://oryzem-backend.onrender.com/api/v1/items/test', {
+                    method: 'GET',
+                    headers: { 'Accept': 'application/json' }
+                });
+                const endTime = Date.now();
+                const latency = endTime - startTime;
+                
+                if (response.ok || response.status === 404) {
+                    // 404 é OK pois significa que a API respondeu (mas endpoint pode não existir)
+                    statusIndicator.classList.add('active');
+                    statusText.innerHTML = `✅ API Online (${latency}ms)`;
+                } else if (response.status === 503) {
+                    statusText.innerHTML = '⚠️ API em hibernação (Render Free Tier)';
+                } else {
+                    statusText.innerHTML = `⚠️ API respondeu com status: ${response.status}`;
+                }
+            } catch (error) {
+                statusText.innerHTML = '❌ API Offline ou não respondendo';
+                console.error('Erro ao verificar API:', error);
+            }
+        }
+        
+        async function sendPostRequest() {
+            const partNumberID = document.getElementById('partNumberID').value.trim();
+            const supplierID = document.getElementById('supplierID').value.trim();
+            
+            // Validação simples
+            if (!partNumberID || !supplierID) {
+                alert('Por favor, preencha ambos os campos!');
+                return;
+            }
+            
+            // Mostrar loading
+            loading.style.display = 'block';
+            result.style.display = 'none';
+            
+            // Dados para enviar
+            const requestData = {
+                partNumberID: partNumberID,
+                supplierID: supplierID
+            };
+            
+            // Limpar classes anteriores
+            result.classList.remove('success', 'error');
+            
+            try {
+                const startTime = Date.now();
+                
+                // Fazer a requisição POST
+                const response = await fetch('https://oryzem-backend.onrender.com/api/v1/items', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                });
+                
+                const endTime = Date.now();
+                const responseTimeMs = endTime - startTime;
+                
+                const data = await response.json();
+                
+                // Esconder loading
+                loading.style.display = 'none';
+                
+                // Mostrar resultado
+                result.style.display = 'block';
+                responseData.textContent = JSON.stringify(data, null, 2);
+                responseTime.innerHTML = `⏱️ Tempo de resposta: <strong>${responseTimeMs}ms</strong> | Status: <strong>${response.status}</strong>`;
+                
+                if (response.ok) {
+                    result.classList.add('success');
+                    result.querySelector('h3').textContent = '✅ POST Realizado com Sucesso!';
+                    
+                    // Sugerir testar o GET
+                    setTimeout(() => {
+                        if (confirm('🎉 POST realizado com sucesso! Deseja testar o GET agora?')) {
+                            testGetRequest(partNumberID, supplierID);
+                        }
+                    }, 1000);
+                } else {
+                    result.classList.add('error');
+                    result.querySelector('h3').textContent = '❌ Erro na Requisição';
+                }
+                
+            } catch (error) {
+                loading.style.display = 'none';
+                result.style.display = 'block';
+                result.classList.add('error');
+                responseData.textContent = `Erro de conexão: ${error.message}\n\nPossíveis causas:\n1. API está hibernada (Render Free Tier)\n2. Problema de CORS\n3. Erro de rede\n\nTente novamente em 10 segundos.`;
+                result.querySelector('h3').textContent = '🚫 Erro de Conexão';
+                responseTime.innerHTML = '';
+                
+                console.error('Erro:', error);
+            }
+        }
+        
+        async function testGetRequest(partNumberID, supplierID) {
+            // Se não passou parâmetros, usar os valores do formulário
+            if (!partNumberID) {
+                partNumberID = document.getElementById('partNumberID').value.trim();
+                supplierID = document.getElementById('supplierID').value.trim();
+                
+                if (!partNumberID || !supplierID) {
+                    alert('Para testar GET, primeiro preencha os campos do formulário!');
+                    return;
+                }
+            }
+            
+            loading.style.display = 'block';
+            result.style.display = 'none';
+            
+            try {
+                const startTime = Date.now();
+                const response = await fetch(`https://oryzem-backend.onrender.com/api/v1/items/${partNumberID}/${supplierID}`);
+                const endTime = Date.now();
+                const responseTimeMs = endTime - startTime;
+                
+                const data = await response.json();
+                
+                loading.style.display = 'none';
+                result.style.display = 'block';
+                
+                // Limpar classes
+                result.classList.remove('success', 'error');
+                
+                responseData.textContent = JSON.stringify(data, null, 2);
+                responseTime.innerHTML = `⏱️ Tempo de resposta: <strong>${responseTimeMs}ms</strong> | Status: <strong>${response.status}</strong>`;
+                
+                if (response.ok) {
+                    result.classList.add('success');
+                    result.querySelector('h3').textContent = '✅ GET Realizado com Sucesso!';
+                } else {
+                    result.classList.add('error');
+                    result.querySelector('h3').textContent = '❌ Item Não Encontrado';
+                }
+                
+            } catch (error) {
+                loading.style.display = 'none';
+                result.style.display = 'block';
+                result.classList.add('error');
+                responseData.textContent = `Erro: ${error.message}`;
+                result.querySelector('h3').textContent = '🚫 Erro no GET';
+                responseTime.innerHTML = '';
+            }
+        }
+        
+        // Preencher com dados de exemplo
+        document.getElementById('partNumberID').addEventListener('click', function() {
+            if (this.value === '') {
+                this.value = 'PN-' + Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+            }
+        });
+        
+        document.getElementById('supplierID').addEventListener('click', function() {
+            if (this.value === '') {
+                this.value = 'SUP-' + Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+            }
+        });
+        
+        // Permitir Enter para enviar
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendPostRequest();
+            }
+        });
+    </script>
+</body>
+</html>
