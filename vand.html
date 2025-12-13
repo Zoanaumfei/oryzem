@@ -4,23 +4,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Oryzem - Vanderson Page Teste Webhook</title>
+  <title>Dashboard principal</title>
   <link rel="stylesheet" href="src/css/styles.css">
 </head>
 
 <body>
   <header>
-    <h1>Oryzem — Vanderson</h1>
+    <h1>Gerenciamento de fornecedores</h1>
+    <h2>Pré Commitment Online</h2>
     <p><a href="index.html">Back to choose a page</a></p>
   </header>
   <main>
-    <section id="interactive">
+    <section id="Dashboard">
       <p id="message">Hello, world!</p>
       <button id="clickMe">Click me</button>
     </section>
+    
 
     <section id="auth">
-      <h2>Authentication</h2>
+      <h3>Authentication</h2>
       <input id="email" type="email" placeholder="Email" />
       <input id="password" type="password" placeholder="Password" />
       <div>
@@ -33,6 +35,10 @@
         <button id="googleSignIn">Sign In With Google</button>
       </div>
     </section>
+    <p>Choose a profile page:</p>
+    <div>
+      <a href="dashboard.html"><button class="option">Dashboard</button></a>
+    </div>
   </main>
   <script type="module" src="src/js/vand_main.js"></script>
 </body>
