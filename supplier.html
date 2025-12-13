@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fornecedor - Sistema APQP</title>
+    <link rel="stylesheet" href="src/css/sup-man-dashboard.css">
+
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-industry"></i> Área do Fornecedor</h1>
+            <div class="header-actions">
+                <button onclick="location.href='dashboard.html'">
+                    <i class="fas fa-home"></i> Voltar
+                </button>
+            </div>
+        </header>
+        
+        <div class="supplier-info">
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i>
+                <div>
+                    <strong>Você tem <span id="supplier-pending-count">0</span> pendência(s)</strong>
+                    <p>Preencha os prazos dos milestones dentro do prazo estipulado</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="supplier-pending-list" class="list-container">
+            <!-- Lista gerada por JavaScript -->
+        </div>
+        
+        <!-- Modal para preenchimento dos prazos -->
+        <div id="milestone-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i class="fas fa-calendar-check"></i> Preencher Prazos</h2>
+                    <span class="close-modal">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <form id="milestone-form">
+                        <div class="part-info">
+                            <h3 id="modal-part-number"></h3>
+                            <p id="modal-part-description"></p>
+                            <div class="info-grid">
+                                <div>
+                                    <strong>Volume Contratado:</strong>
+                                    <span id="modal-volume"></span>
+                                </div>
+                                <div>
+                                    <strong>Volume/Semana:</strong>
+                                    <span id="modal-weekly"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="milestone-dates">
+                            <h3><i class="fas fa-flag"></i> Definir Datas dos Milestones</h3>
+                            
+                            <div class="form-group">
+                                <label for="vff-date">
+                                    <i class="fas fa-flag"></i> VFF - Primeiras Peças
+                                </label>
+                                <input type="date" id="vff-date" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="pvs-date">
+                                    <i class="fas fa-flag"></i> PVS - Entrega do PPA
+                                </label>
+                                <input type="date" id="pvs-date" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="os-date">
+                                    <i class="fas fa-flag"></i> 0S - Série
+                                </label>
+                                <input type="date" id="os-date" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="sop-date">
+                                    <i class="fas fa-flag"></i> SOP - Start of Production
+                                </label>
+                                <input type="date" id="sop-date" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="supplier-signature">
+                                <i class="fas fa-signature"></i> Nome para Assinatura
+                            </label>
+                            <input type="text" id="supplier-signature" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="supplier-notes">
+                                <i class="fas fa-sticky-note"></i> Observações (opcional)
+                            </label>
+                            <textarea id="supplier-notes" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-check-circle"></i> Confirmar e Enviar
+                            </button>
+                            <button type="button" class="btn-secondary close-modal">
+                                <i class="fas fa-times"></i> Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Fornecedor | Prazo para resposta: 2 semanas após solicitação</p>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
