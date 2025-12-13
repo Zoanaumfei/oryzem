@@ -1,11 +1,11 @@
 body {
-    background: #e0f7fa; /*Fundo com cor */
+    background: #5c5757; /*Fundo com cor */
     color: #222
 }
 
 header h1 {
     font-size: 2.5rem;
-    color: #00695c;
+    color: #e0d42c;
     text-align: center;
 }
 
@@ -18,9 +18,9 @@ main {
 }
 
 button.option {
-    background: #00897b; /*cor diferente para os botoes */
+    background: #e0d42c; /*cor diferente para os botoes */
 }
 
 button.option:hover {
-    background: #004d40;
+    background: #b8ae21;
 }
