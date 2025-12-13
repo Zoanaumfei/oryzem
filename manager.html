@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor - Sistema APQP</title>
+    <link rel="stylesheet" href="src/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-user-tie"></i> Área do Gestor</h1>
+            <div class="header-actions">
+                <button onclick="location.href='dashboard.html'">
+                    <i class="fas fa-home"></i> Voltar
+                </button>
+            </div>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab('register')">
+                <i class="fas fa-plus-circle"></i> Nova Peça
+            </button>
+            <button class="tab-button" onclick="openTab('pending')">
+                <i class="fas fa-clock"></i> Pendentes
+                <span class="badge" id="pending-count">0</span>
+            </button>
+            <button class="tab-button" onclick="openTab('all')">
+                <i class="fas fa-list"></i> Todas as Peças
+            </button>
+        </div>
+        
+        <!-- Tab 1: Registrar Nova Peça -->
+        <div id="register" class="tab-content active">
+            <div class="card">
+                <h2><i class="fas fa-cube"></i> Cadastrar Nova Peça</h2>
+                
+                <form id="part-form">
+                    <div class="form-group">
+                        <label for="part-number">
+                            <i class="fas fa-barcode"></i> Número da Peça (Part Number)
+                        </label>
+                        <input type="text" id="part-number" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="part-description">
+                            <i class="fas fa-file-alt"></i> Descrição da Peça
+                        </label>
+                        <textarea id="part-description" rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="contracted-volume">
+                                <i class="fas fa-boxes"></i> Volume Contratado
+                            </label>
+                            <input type="number" id="contracted-volume" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="weekly-volume">
+                                <i class="fas fa-chart-line"></i> Volume/Semana
+                            </label>
+                            <input type="number" id="weekly-volume" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="supplier-email">
+                            <i class="fas fa-envelope"></i> Email do Fornecedor
+                        </label>
+                        <input type="email" id="supplier-email" required>
+                        <small>O fornecedor receberá um email com o link para preenchimento</small>
+                    </div>
+                    
+                    <div class="milestones-section">
+                        <h3><i class="fas fa-flag-checkered"></i> Milestones do Projeto</h3>
+                        
+                        <div class="milestone-grid">
+                            <div class="milestone">
+                                <h4>VFF</h4>
+                                <p>Primeiras Peças</p>
+                            </div>
+                            
+                            <div class="milestone">
+                                <h4>PVS</h4>
+                                <p>Entrega do PPA</p>
+                            </div>
+                            
+                            <div class="milestone">
+                                <h4>0S</h4>
+                                <p>Série</p>
+                            </div>
+                            
+                            <div class="milestone">
+                                <h4>SOP</h4>
+                                <p>Start of Production</p>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="due-date">
+                                <i class="fas fa-calendar-alt"></i> Prazo para Fornecedor (semanas)
+                            </label>
+                            <select id="due-date" required>
+                                <option value="1">1 semana</option>
+                                <option value="2" selected>2 semanas</option>
+                                <option value="3">3 semanas</option>
+                                <option value="4">4 semanas</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-paper-plane"></i> Enviar para Fornecedor
+                        </button>
+                        <button type="reset" class="btn-secondary">
+                            <i class="fas fa-redo"></i> Limpar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Tab 2: Pendentes do Fornecedor -->
+        <div id="pending" class="tab-content">
+            <div class="card">
+                <h2><i class="fas fa-clock"></i> Peças Pendentes</h2>
+                <div id="pending-list" class="list-container">
+                    <!-- Lista gerada por JavaScript -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab 3: Todas as Peças -->
+        <div id="all" class="tab-content">
+            <div class="card">
+                <h2><i class="fas fa-list"></i> Todas as Peças Cadastradas</h2>
+                <div id="all-parts-list" class="list-container">
+                    <!-- Lista gerada por JavaScript -->
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Gestor: Seu Nome | Último acesso: <span id="last-access"></span></p>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+    <script>
+        // Data do último acesso
+        document.getElementById('last-access').textContent = 
+            new Date().toLocaleDateString('pt-BR') + ' ' + 
+            new Date().toLocaleTimeString('pt-BR');
+    </script>
+</body>
+</html>
