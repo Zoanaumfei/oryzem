@@ -27,12 +27,11 @@ main {
 
 .fonte {
     padding: 0.7rem; /* espaço interno pro texto "respirar" */
-    margin-bottom: 1rem; /* espaço entre o bloco e outro */
     border: 1px solid #414040; /* borda para separar visual */
     border-radius: 6px; /* cantos arredondados */
     font-size: 1.6rem; /* tamanho da fonte */
     max-width: 40%; /* limita o tamanho horizontal do div */
-    margin: 0 auto; /*centraliza os div na tela */
+    margin: 0 auto 1rem; /*centraliza os div na tela margin: topo | esquerda e direita | baixo e quando eu coloco auto ele centraliza automaticamente*/
 }
 
 .fonte-arial {
