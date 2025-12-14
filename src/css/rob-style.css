@@ -36,7 +36,12 @@ main {
 .fonte-trebuchet{
     font-family: Trebuchet;
 }
-
+.fonte-couriernew{
+    font-family: 'Courier New';
+}
+.fonte-georgia{
+    font-family: Georgia;
+}
 .btn-voltar{
 display: inline-block;
 padding: 0.75rem 1.4rem;
