@@ -1,6 +1,7 @@
 body {
     background: #222; /*Fundo com cor */
-    color: #222
+    color: #222;
+    font-family: Tahoma;
 }
 
 header h1 {
@@ -21,7 +22,7 @@ main {
 display: inline-block;
 padding: 0.75rem 1.4rem;
 background: #e0d42c;
-color: #ffffff;
+color: #222;
 text-decoration: none;
 border-radius: 8px;
 font-weight: bold;
