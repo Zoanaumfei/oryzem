@@ -18,6 +18,25 @@ main {
     text-align: center;
 }
 
+.fonte {
+    padding: 1rem; /* espaço interno pro texto "respirar" */
+    margin-bottom: 0.8rem; /* espaço entre o bloco e outro */
+    border: 1px solid #ddd; /* borda para separar visual */
+    border-radius: 6px; /* cantos arredondados */
+    font-size: 1.1rem; /* tamanho da fonte */
+}
+
+.fonte-arial {
+    font-family: Arial;
+}
+
+.fonte-tahoma{
+    font-family: Tahoma;
+}
+.fonte-trebuchet{
+    font-family: Trebuchet;
+}
+
 .btn-voltar{
 display: inline-block;
 padding: 0.75rem 1.4rem;
