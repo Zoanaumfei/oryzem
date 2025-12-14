@@ -19,7 +19,7 @@ main {
 }
 
 .fonte {
-    padding: 1rem; /* espaço interno pro texto "respirar" */
+    padding: 10rem; /* espaço interno pro texto "respirar" */
     margin-bottom: 1rem; /* espaço entre o bloco e outro */
     border: 1px solid #414040; /* borda para separar visual */
     border-radius: 6px; /* cantos arredondados */
