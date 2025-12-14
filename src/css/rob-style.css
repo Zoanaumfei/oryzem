@@ -31,6 +31,7 @@ main {
     border: 1px solid #414040; /* borda para separar visual */
     border-radius: 6px; /* cantos arredondados */
     font-size: 1.6rem; /* tamanho da fonte */
+    max-width: 450; /* limita o tamanho horizontal do div */
 }
 
 .fonte-arial {
