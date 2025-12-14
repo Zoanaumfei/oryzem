@@ -32,6 +32,7 @@ main {
     border-radius: 6px; /* cantos arredondados */
     font-size: 1.6rem; /* tamanho da fonte */
     max-width: 40%; /* limita o tamanho horizontal do div */
+    margin: 0 auto; /*centraliza os div na tela */
 }
 
 .fonte-arial {
