@@ -59,6 +59,8 @@
    ================================================================= */
 
 .form-group {
+    display: flex;
+    flex-direction: column;
     margin-bottom: var(--space-4);
     position: relative;
 }
@@ -73,11 +75,17 @@
     /* Layout */
     display: block;
     margin-bottom: var(--space-2);
+    order: 1; /* Garante que fique antes do input */
+
+    /* Transição para efeitos */
+    transition: all var(--duration-150) var(--ease-in-out);
+    transform-origin: left top;   
 }
 
 .form-label--required::after {
     content: " *";
     color: var(--vw-accent-500);
+    font-weight: var(--font-bold);
 }
 
 /* =================================================================
@@ -88,6 +96,7 @@
     /* Layout */
     width: 100%;
     padding: var(--space-3) var(--space-4);
+    order: 2; /* Garante que fique depois da label */
     
     /* Tipografia */
     font-family: var(--font-primary);
@@ -179,6 +188,11 @@
     background-color: var(--vw-gray-100);
 }
 
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
 /* =================================================================
    5. VALIDAÇÃO & FEEDBACK
    ================================================================= */
@@ -201,6 +215,12 @@
     background-position: right var(--space-3) center;
     background-size: 20px;
     padding-right: var(--space-10);
+}
+
+.form-control:focus {
+    border-color: var(--vw-blue-500);
+    box-shadow: 0 0 0 3px rgba(0, 123, 199, 0.1);
+    outline: none;
 }
 
 /* Mensagens de ajuda/erro */
