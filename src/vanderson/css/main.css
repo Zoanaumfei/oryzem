@@ -1,11 +1,11 @@
 /* css/main.css */
 
 /* 1. Base */
-@import url('base/reset.css');
-@import url('base/variables.css');
+@import url(/src/vanderson/css/base/reset.css);
+@import url(/src/vanderson/css/base/variables.css);
 
 /* 2. Componentes */
-@import url('components/buttons.css');
+@import url(/src/vanderson/css/components/buttons);
 /* @import url('components/header.css');
 /* @import url('components/forms.css');
 
