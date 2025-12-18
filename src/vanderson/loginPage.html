@@ -4,18 +4,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>LoginPage</title>
+  <title>LoginPage - VW Supply</title>
   <link rel="stylesheet" href="/src/vanderson/css/main.css">
 </head>
 
 <body>  
   <header class="site-header">
-  <!-- Logo/Marca -->
+    <!-- Logo/Marca -->
     <a href="/" class="header__logo">
-        <img src="/src/vanderson/images/volkswagen-logo.png" 
-             alt="VW Supply" 
-             class="header__logo-img">
+      <img src="/src/vanderson/images/volkswagen-logo.png" 
+           alt="VW Supply" 
+           class="header__logo-img">
     </a>
+    
     <!-- Conteúdo Principal -->
     <div class="header__content">
       <h1 class="header__title">VW Supply - Solicitacao de revitalizacao</h1>
@@ -29,72 +30,76 @@
       <button id="clickMe">Click me</button>
     </section>
     
+    <!-- SEÇÃO DE USUÁRIO EXTERNO - CORRIGIDA -->
     <section id="externUsersSign" class="form-section">
       <!-- Cabeçalho da seção -->
-      <div class="form-section__header"></div>
+      <div class="form-section__header">
         <h3 class="form-section__title">Usuário Externo</h3>
       </div>
 
-      <!-- Formulário -->
-        <form id="externLoginForm"></form>
-          <!-- Grupo de email -->
-            <div class="form-group"></div>
-              <label for="externEmail" class="form-label form-label--required">
-                Email
-              </label>
-              <input 
-                id="externEmail" 
-                type="email" 
-                class="form-control input-email" 
-                placeholder="seu.emailexterno@exemplo.com" 
-                required
-              >
-            </div>
-          <!-- Grupo de senha -->
-            <div class="form-group">
-              <label for="externPassword" class="form-label form-label--required">
-                Senha
-              </label>
-              <div class="password-wrapper">
-                <input 
-                    id="externPassword" 
-                    type="password" 
-                    class="form-control input-password" 
-                    placeholder="Sua senha" 
-                    required
-                >
-                <button type="button" class="password-toggle" aria-label="Mostrar senha">
-                </button>
-              </div>
-            </div>
+      <!-- Formulário - CORRIGIDO: tags na ordem correta -->
+      <form id="externLoginForm">
+        <!-- Grupo de email -->
+        <div class="form-group">
+          <label for="externEmail" class="form-label form-label--required">
+            Email
+          </label>
+          <input 
+            id="externEmail" 
+            type="email" 
+            class="form-control input-email" 
+            placeholder="seu.emailexterno@exemplo.com" 
+            required
+          >
+        </div>
 
-            <!-- Ações -->
-          <div class="form-actions">
-              <button type="submit" id="externSignInButton" class="btn btn--primary btn--xs">
-                Sign In
-              </button>
-              <button type="button" id="externSignOutButton" class="btn btn--primary btn--xs">
-                Sign Out
-              </button>
+        <!-- Grupo de senha -->
+        <div class="form-group">
+          <label for="externPassword" class="form-label form-label--required">
+            Senha
+          </label>
+          <div class="password-wrapper">
+            <input 
+              id="externPassword" 
+              type="password" 
+              class="form-control input-password" 
+              placeholder="Sua senha" 
+              required
+            >
+            <button type="button" class="password-toggle" aria-label="Mostrar senha">
+              👁️
+            </button>
           </div>
-        </form>
+        </div>
+
+        <!-- Ações -->
+        <div class="form-actions">
+          <button type="submit" id="externSignInButton" class="btn btn--primary btn--md">
+            Sign In
+          </button>
+          <button type="button" id="externSignOutButton" class="btn btn--outline-primary btn--md">
+            Sign Out
+          </button>
+        </div>
+      </form>
     </section>
 
+    <!-- OUTRAS SEÇÕES (mantenha como estão) -->
     <section id="vwUsersSign">
-      <h3>Usuario Volkswagen do Brasil</h2>
+      <h3>Usuario Volkswagen do Brasil</h3>
       <input id="vwEmail" type="email" placeholder="Email" />
       <input id="vwPassword" type="password" placeholder="Password" />
       <div class="header__actions">
-        <button id="vwSignInButton" class="btn btn--primary btn--xs" >Sign In</button>
-        <button id="vwSignOutButton"class="btn btn--primary btn--xs" >Sign Out</button>
+        <button id="vwSignInButton" class="btn btn--primary btn--xs">Sign In</button>
+        <button id="vwSignOutButton" class="btn btn--primary btn--xs">Sign Out</button>
       </div>
     </section>
 
     <section id="googleAuth">
-      <h3>Authentication</h2>
+      <h3>Authentication</h3>
       <p id="authStatus">Signed out</p>
       <div>
-        <button id="googleSignInButton" class="btn btn--primary btn--xs" >Sign In With Google</button>
+        <button id="googleSignInButton" class="btn btn--primary btn--xs">Sign In With Google</button>
       </div>
       <div>
         <button id="googleSignOutButton">Sign Out</button>
@@ -106,8 +111,7 @@
       <a href="/dashboard.html"><button class="option">Dashboard</button></a>
     </div>
   </main>
+  
   <script type="module" src="/src/vanderson/js/vand.js"></script>
 </body>
-
 </html>
-
