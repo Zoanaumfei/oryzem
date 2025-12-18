@@ -55,35 +55,35 @@ button {
 .btn--xs {
     padding: var(--space-1) var(--space-3);
     font-size: var(--text-xs);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-none);
     min-height: 28px;
 }
 
 .btn--sm {
     padding: var(--space-2) var(--space-4);
     font-size: var(--text-sm);
-    border-radius: var(--radius-base);
+    border-radius: var(--radius-none);
     min-height: 36px;
 }
 
 .btn--md {
     padding: var(--space-3) var(--space-6);
     font-size: var(--text-base);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-none);
     min-height: 44px;
 }
 
 .btn--lg {
     padding: var(--space-4) var(--space-8);
     font-size: var(--text-lg);
-    border-radius: var(--radius-xl);
+    border-radius: var(--radius-none);
     min-height: 52px;
 }
 
 .btn--xl {
     padding: var(--space-5) var(--space-10);
     font-size: var(--text-xl);
-    border-radius: var(--radius-2xl);
+    border-radius: var(--radius-none);
     min-height: 60px;
 }
 
