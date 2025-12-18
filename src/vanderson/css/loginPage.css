@@ -35,7 +35,7 @@ h1 {
   font-size: clamp(1.5rem, 2.5vw, 2.5rem);
   
   /* Estilo e Peso */
-  font-weight: 400;
+  font-weight: 600;
   color: #1a1a1a;
   line-height: 1.1;
   letter-spacing: -0.02em; /* Deixa o título mais elegante */
