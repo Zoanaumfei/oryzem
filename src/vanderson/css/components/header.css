@@ -61,6 +61,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0; /* Impede que a logo encolha */
     
     /* Dimensões */
     width: 48px;
