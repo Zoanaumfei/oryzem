@@ -7,7 +7,7 @@
 /* 2. Componentes */
 @import url(/src/vanderson/css/components/buttons.css);
 @import url(/src/vanderson/css/components/header.css);
-/* @import url('components/forms.css');
+@import url(/src/vanderson/css/components/forms.css);
 
 /* 3. Layout */
 /* @import url('layout/grid.css');
