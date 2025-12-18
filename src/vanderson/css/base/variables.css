@@ -1,0 +1,282 @@
+/* ============================================
+   VOLKSWAGEN DESIGN SYSTEM - CSS VARIABLES
+   Baseado na identidade visual da Volkswagen Brasil
+   Versão: 1.0
+   ============================================ */
+
+:root {
+  /* =================================================================
+     1. PALETA DE CORES OFICIAL VOLKSWAGEN
+     ================================================================= */
+  
+  /* ---------- Cores Principais da Marca ---------- */
+  /* Azul Volkswagen (primário) - Baseado no logo e elementos principais */
+  --vw-blue-50: #e6f0ff;
+  --vw-blue-100: #c2d9ff;
+  --vw-blue-200: #99c0ff;
+  --vw-blue-300: #70a6ff;
+  --vw-blue-400: #4792ff;
+  --vw-blue-500: #007bc7;    /* Azul Volkswagen principal */
+  --vw-blue-600: #0060a6;
+  --vw-blue-700: #004785;
+  --vw-blue-800: #003164;
+  --vw-blue-900: #001d43;
+
+  /* Cinza Volkswagen - Para texto, fundos e elementos neutros */
+  --vw-gray-50: #f8f9fa;
+  --vw-gray-100: #e9ecef;
+  --vw-gray-200: #dee2e6;
+  --vw-gray-300: #ced4da;
+  --vw-gray-400: #adb5bd;
+  --vw-gray-500: #6c757d;    /* Cinza médio para texto */
+  --vw-gray-600: #495057;
+  --vw-gray-700: #343a40;    /* Para títulos e texto importante */
+  --vw-gray-800: #212529;
+  --vw-gray-900: #121416;
+
+  /* Cores de Destaque - Baseadas nos elementos do site */
+  --vw-white: #ffffff;
+  --vw-black: #000000;
+  --vw-silver: #e0e0e0;      /* Para bordas e divisórias */
+  --vw-light-bg: #f5f7fa;    /* Fundo claro de seções */
+
+  /* ---------- Cores Semânticas (Inspiradas no site) ---------- */
+  /* Destaque/Ação (laranja/vermelho de botões e elementos ativos) */
+  --vw-accent-500: #e4002b;   /* Vermelho Volkswagen para CTAs */
+  --vw-accent-600: #c40024;
+  --vw-accent-700: #a3001d;
+
+  /* Sucesso/Confirmação */
+  --vw-success-500: #28a745;  /* Verde para confirmações */
+  --vw-success-600: #218838;
+  --vw-success-700: #1e7e34;
+
+  /* Alerta/Atenção */
+  --vw-warning-500: #ffc107;  /* Amarelo para destaques */
+  --vw-warning-600: #e0a800;
+  --vw-warning-700: #d39e00;
+
+  /* =================================================================
+     2. TIPOGRAFIA E TEXTOS
+     ================================================================= */
+  
+  /* ---------- Famílias de Fontes ---------- */
+  --font-primary: 'Volkswagen Sans', -apple-system, BlinkMacSystemFont, 
+                  'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-secondary: 'Volkswagen Headline', 'Arial Narrow', Arial, sans-serif;
+  --font-mono: 'Courier New', Courier, monospace;
+
+  /* ---------- Tamanhos de Fonte (Escala modular) ---------- */
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px - tamanho base */
+  --text-lg: 1.125rem;    /* 18px */
+  --text-xl: 1.25rem;     /* 20px */
+  --text-2xl: 1.5rem;     /* 24px */
+  --text-3xl: 1.875rem;   /* 30px */
+  --text-4xl: 2.25rem;    /* 36px */
+  --text-5xl: 3rem;       /* 48px */
+  --text-hero: 4rem;      /* 64px - para títulos hero */
+
+  /* ---------- Pesos de Fonte ---------- */
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+
+  /* ---------- Altura de Linha ---------- */
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+  --leading-loose: 2;
+
+  /* =================================================================
+     3. ESPAÇAMENTO & LAYOUT
+     ================================================================= */
+  
+  /* ---------- Sistema de Espaçamento (8px base) ---------- */
+  --space-1: 0.25rem;    /* 4px */
+  --space-2: 0.5rem;     /* 8px */
+  --space-3: 0.75rem;    /* 12px */
+  --space-4: 1rem;       /* 16px */
+  --space-5: 1.25rem;    /* 20px */
+  --space-6: 1.5rem;     /* 24px */
+  --space-8: 2rem;       /* 32px */
+  --space-10: 2.5rem;    /* 40px */
+  --space-12: 3rem;      /* 48px */
+  --space-16: 4rem;      /* 64px */
+  --space-20: 5rem;      /* 80px */
+  --space-24: 6rem;      /* 96px */
+
+  /* ---------- Tamanhos de Container ---------- */
+  --container-xs: 20rem;     /* 320px */
+  --container-sm: 24rem;     /* 384px */
+  --container-md: 28rem;     /* 448px */
+  --container-lg: 32rem;     /* 512px */
+  --container-xl: 36rem;     /* 576px */
+  --container-2xl: 42rem;    /* 672px */
+  --container-3xl: 48rem;    /* 768px */
+  --container-4xl: 56rem;    /* 896px */
+  --container-5xl: 64rem;    /* 1024px */
+  --container-6xl: 72rem;    /* 1152px */
+  --container-7xl: 80rem;    /* 1280px */
+
+  /* =================================================================
+     4. BORDAS & SOMBRAS
+     ================================================================= */
+  
+  /* ---------- Raio de Borda ---------- */
+  --radius-none: 0;
+  --radius-sm: 0.125rem;    /* 2px */
+  --radius-base: 0.25rem;   /* 4px */
+  --radius-md: 0.375rem;    /* 6px */
+  --radius-lg: 0.5rem;      /* 8px */
+  --radius-xl: 0.75rem;     /* 12px */
+  --radius-2xl: 1rem;       /* 16px */
+  --radius-3xl: 1.5rem;     /* 24px */
+  --radius-full: 9999px;    /* Para elementos circulares */
+
+  /* ---------- Sistema de Sombras ---------- */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+
+  /* =================================================================
+     5. COMPONENTES ESPECÍFICOS (Baseados no site VW)
+     ================================================================= */
+  
+  /* ---------- Cores de Componentes ---------- */
+  --btn-primary-bg: var(--vw-blue-500);
+  --btn-primary-hover: var(--vw-blue-600);
+  --btn-primary-text: var(--vw-white);
+  
+  --btn-accent-bg: var(--vw-accent-500);
+  --btn-accent-hover: var(--vw-accent-600);
+  --btn-accent-text: var(--vw-white);
+  
+  --btn-secondary-bg: var(--vw-gray-200);
+  --btn-secondary-hover: var(--vw-gray-300);
+  --btn-secondary-text: var(--vw-gray-800);
+  
+  --header-bg: var(--vw-white);
+  --header-text: var(--vw-gray-800);
+  --header-border: var(--vw-gray-200);
+  
+  --footer-bg: var(--vw-gray-900);
+  --footer-text: var(--vw-gray-300);
+  --footer-link: var(--vw-blue-300);
+  
+  --card-bg: var(--vw-white);
+  --card-border: var(--vw-gray-200);
+  --card-shadow: var(--shadow-md);
+  
+  --input-bg: var(--vw-white);
+  --input-border: var(--vw-gray-300);
+  --input-focus-border: var(--vw-blue-500);
+  --input-focus-ring: 0 0 0 3px rgba(0, 123, 199, 0.1);
+
+  /* ---------- Alturas e Larguras ---------- */
+  --header-height: 4rem;          /* 64px */
+  --footer-height: auto;
+  --sidebar-width: 16rem;         /* 256px */
+  --sidebar-collapsed: 4rem;      /* 64px */
+
+  /* =================================================================
+     6. ANIMAÇÕES & TRANSIÇÕES
+     ================================================================= */
+  
+  /* ---------- Durações ---------- */
+  --duration-75: 75ms;
+  --duration-100: 100ms;
+  --duration-150: 150ms;
+  --duration-200: 200ms;
+  --duration-300: 300ms;
+  --duration-500: 500ms;
+  --duration-700: 700ms;
+  --duration-1000: 1000ms;
+
+  /* ---------- Timing Functions ---------- */
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* =================================================================
+     7. BREAKPOINTS RESPONSIVOS
+     ================================================================= */
+  
+  /* Valores padrão para media queries tradicionais */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* =================================================================
+     8. Z-INDEX (Sistema de camadas)
+     ================================================================= */
+  
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-toast: 1080;
+}
+
+/* =================================================================
+   TEMA ESCURO (Opcional)
+   ================================================================= */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --vw-gray-50: #121416;
+    --vw-gray-100: #212529;
+    --vw-gray-200: #343a40;
+    --vw-gray-300: #495057;
+    --vw-gray-400: #6c757d;
+    --vw-gray-500: #adb5bd;
+    --vw-gray-600: #ced4da;
+    --vw-gray-700: #dee2e6;
+    --vw-gray-800: #e9ecef;
+    --vw-gray-900: #f8f9fa;
+    
+    --vw-white: #121416;
+    --vw-light-bg: #1a1d21;
+    
+    --header-bg: #1a1d21;
+    --header-text: var(--vw-gray-300);
+    
+    --card-bg: #1a1d21;
+    --card-border: var(--vw-gray-800);
+    
+    --input-bg: #1a1d21;
+    --input-border: var(--vw-gray-700);
+  }
+}
+
+/* =================================================================
+   CLASSES UTILITÁRIAS PARA USO DIRETO
+   ================================================================= */
+
+/* Cores de texto */
+.text-vw-blue { color: var(--vw-blue-500); }
+.text-vw-accent { color: var(--vw-accent-500); }
+.text-vw-gray { color: var(--vw-gray-500); }
+
+/* Cores de fundo */
+.bg-vw-blue { background-color: var(--vw-blue-500); }
+.bg-vw-accent { background-color: var(--vw-accent-500); }
+.bg-vw-light { background-color: var(--vw-light-bg); }
+
+/* Bordas */
+.border-vw-blue { border-color: var(--vw-blue-500); }
+.border-vw-accent { border-color: var(--vw-accent-500); }
+.border-vw-gray { border-color: var(--vw-gray-300); }

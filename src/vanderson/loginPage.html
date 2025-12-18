@@ -5,10 +5,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>LoginPage</title>
-  <link rel="stylesheet" href="/src/vanderson/css/loginPage.css">
+  <link rel="stylesheet" href="/src/vanderson/css/main.css">
 </head>
 
-<body>
+<body>  
   <header class="header-flex">
     <div class="logo-container">
       <img src="/src/vanderson/images/volkswagen-logo.png" alt="VW Supply" class="logo">
@@ -30,8 +30,8 @@
       <input id="externEmail" type="email" placeholder="Email" />
       <input id="externPassword" type="password" placeholder="Password" />
       <div>
-        <button id="signIn">Sign In</button>
-        <button id="signOut">Sign Out</button>
+        <button id="externSignInButton" class="btn btn--primary" >Sign In</button>
+        <button id="externSignOutButton">Sign Out</button>
       </div>
     </section>
 
@@ -40,8 +40,8 @@
       <input id="vwEmail" type="email" placeholder="Email" />
       <input id="vwPassword" type="password" placeholder="Password" />
       <div>
-        <button id="signIn">Sign In</button>
-        <button id="signOut">Sign Out</button>
+        <button id="vwSignInButton">Sign In</button>
+        <button id="vwSignOutButton">Sign Out</button>
       </div>
     </section>
 
@@ -49,10 +49,10 @@
       <h3>Authentication</h2>
       <p id="authStatus">Signed out</p>
       <div>
-        <button id="googleSignIn">Sign In With Google</button>
+        <button id="googleSignInButton">Sign In With Google</button>
       </div>
       <div>
-        <button id="signOut">Sign Out</button>
+        <button id="googleSignOutButton">Sign Out</button>
       </div>
     </section>
 
