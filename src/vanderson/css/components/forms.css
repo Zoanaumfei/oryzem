@@ -65,9 +65,9 @@
 
 .form-label {
     /* Tipografia */
-    font-family: var(--font-primary);
+    font-family: var(--font-light);
     font-size: var(--text-sm);
-    font-weight: var(--font-medium);
+    font-weight: var(--font-light);
     color: var(--vw-gray-700);
     
     /* Layout */
