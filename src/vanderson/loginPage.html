@@ -28,153 +28,183 @@
     <!-- Container principal para os formulários -->
     <div class="forms-grid">
       
-      <!-- SEÇÃO DE USUÁRIO EXTERNO -->
-      <section class="form-section" id="externUsersSign">
-        <div class="form-section__header">
-          <h3 class="form-section__title">Usuário Externo</h3>
-          <p class="form-section__subtitle">Acesso para parceiros externos</p>
-        </div>
+      <!-- SEÇÃO DE USUÁRIO EXTERNO  -->
+<section class="form-section" id="externUsersSign">
+  <div class="form-section__header">
+    <h3 class="form-section__title">Usuário Externo</h3>
+    <p class="form-section__subtitle">Acesso para parceiros externos</p>
+  </div>
 
-        <form id="externLoginForm">
-          <!-- Grupo de email -->
-          <div class="form-group">
-            <label for="externEmail" class="form-label form-label--required">
-              Email
-            </label>
-            <div class="input-wrapper">
-              <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" 
-                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M22 6L12 13L2 6" 
-                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <input 
-                id="externEmail" 
-                type="email" 
-                class="form-control" 
-                placeholder="seu.emailexterno@exemplo.com" 
-                required
-              >
-            </div>
-          </div>
+  <form id="externLoginForm">
+    <!-- Grupo de email -->
+    <div class="form-group">
+      <label for="externEmail" class="form-label form-label--required">
+        Email
+      </label>
+      <div class="input-wrapper">
+        <svg class="input-icon input-icon--email" width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" 
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M22 6L12 13L2 6" 
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <input 
+          id="externEmail" 
+          type="email" 
+          class="form-control" 
+          placeholder="seu.emailexterno@exemplo.com" 
+          required
+        >
+      </div>
+    </div>
 
-          <!-- Grupo de senha -->
-          <div class="form-group">
-            <label for="externPassword" class="form-label form-label--required">
-              Senha
-            </label>
-            <div class="input-wrapper">
-              <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" 
-                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M7 11V7C7 4.8 8.8 3 11 3H13C15.2 3 17 4.8 17 7V11" 
-                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <input 
-                id="externPassword" 
-                type="password" 
-                class="form-control" 
-                placeholder="Digite sua senha" 
-                required
-              >
-            </div>
-          </div>
+    <!-- Grupo de senha -->
+    <div class="form-group">
+      <label for="externPassword" class="form-label form-label--required">
+        Senha
+      </label>
+      <div class="input-wrapper">
+        <svg class="input-icon input-icon--password" width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" 
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7 11V7C7 4.8 8.8 3 11 3H13C15.2 3 17 4.8 17 7V11" 
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <input 
+          id="externPassword" 
+          type="password" 
+          class="form-control form-control--password" 
+          placeholder="Digite sua senha" 
+          required
+        >
+        <!-- Botão para mostrar/ocultar senha -->
+        <button type="button" class="password-toggle" aria-label="Mostrar senha" data-target="externPassword">
+          <svg class="toggle-icon toggle-icon--eye" width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" 
+                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="12" cy="12" r="3" 
+                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <svg class="toggle-icon toggle-icon--eye-slash" width="20" height="20" viewBox="0 0 24 24" fill="none" style="display: none;">
+            <path d="M14.8 14.8C13.6 15.9 11.8 16.5 10 15.9C8.2 15.3 7 13.5 7 11.5C7 10.3 7.5 9.2 8.3 8.3M10 4C10.8 4 11.6 4.1 12.4 4.3L17.4 2.3C17.8 2.1 18.3 2.3 18.5 2.7L19.7 5.3C19.9 5.7 19.7 6.2 19.3 6.4L17.5 7.4C18.9 9 19.8 11 19.8 13.2C19.8 17.1 17 20.4 13.2 21.2C12.4 21.4 11.6 21.5 10.8 21.5C6.5 21.5 2.8 18.3 2 13.9" 
+                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 2L22 22" 
+                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
 
-          <!-- Ações -->
-          <div class="form-actions">
-            <button type="submit" id="externSignInButton" class="btn btn--primary btn--md">
-              <svg class="btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M11 16L13 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M20 21V19C20 17.9 19.1 17 18 17H6C4.9 17 4 17.9 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Sign In
-            </button>
-            <button type="button" id="externSignOutButton" class="btn btn--outline-primary btn--md">
-              <svg class="btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M9 21H5C3.9 21 3 20.1 3 19V5C3 3.9 3.9 3 5 3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M16 17L21 12L16 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Sign Out
-            </button>
-          </div>
-        </form>
-      </section>
+    <!-- Ações -->
+    <div class="form-actions">
+      <button type="submit" id="externSignInButton" class="btn btn--primary btn--md">
+        <svg class="btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M11 16L13 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M20 21V19C20 17.9 19.1 17 18 17H6C4.9 17 4 17.9 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Sign In
+      </button>
+      <button type="button" id="externSignOutButton" class="btn btn--outline-primary btn--md">
+        <svg class="btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M9 21H5C3.9 21 3 20.1 3 19V5C3 3.9 3.9 3 5 3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M16 17L21 12L16 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Sign Out
+      </button>
+    </div>
+  </form>
+</section>
 
-      <!-- SEÇÃO DE USUÁRIO VW (INTERNO) - MODIFICADO -->
-      <section class="form-section" id="vwUsersSign">
-        <div class="form-section__header">
-          <h3 class="form-section__title">Usuário Volkswagen do Brasil</h3>
-          <p class="form-section__subtitle">Acesso para colaboradores internos</p>
-        </div>
+      <!-- SEÇÃO DE INTERNO -->
+<section class="form-section" id="internoUsersSign">
+  <div class="form-section__header">
+    <h3 class="form-section__title">Usuário Externo</h3>
+    <p class="form-section__subtitle">Acesso para parceiros externos</p>
+  </div>
 
-        <form id="vwLoginForm">
-          <!-- Grupo de email -->
-          <div class="form-group">
-            <label for="vwEmail" class="form-label form-label--required">
-              Email Corporativo
-            </label>
-            <div class="input-wrapper">
-              <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" 
-                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M22 6L12 13L2 6" 
-                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <input 
-                id="vwEmail" 
-                type="email" 
-                class="form-control" 
-                placeholder="seu.email@volkswagen.com.br" 
-                required
-              >
-            </div>
-          </div>
+  <form id="internLoginForm">
+    <!-- Grupo de email -->
+    <div class="form-group">
+      <label for="internEmail" class="form-label form-label--required">
+        Email
+      </label>
+      <div class="input-wrapper">
+        <svg class="input-icon input-icon--email" width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" 
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M22 6L12 13L2 6" 
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <input 
+          id="internEmail" 
+          type="email" 
+          class="form-control" 
+          placeholder="seu.email@volkswagen.com.br" 
+          required
+        >
+      </div>
+    </div>
 
-          <!-- Grupo de senha -->
-          <div class="form-group">
-            <label for="vwPassword" class="form-label form-label--required">
-              Senha Corporativa
-            </label>
-            <div class="input-wrapper">
-              <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" 
-                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M7 11V7C7 4.8 8.8 3 11 3H13C15.2 3 17 4.8 17 7V11" 
-                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <input 
-                id="vwPassword" 
-                type="password" 
-                class="form-control" 
-                placeholder="Sua senha corporativa" 
-                required
-              >
-            </div>
-          </div>
+    <!-- Grupo de senha -->
+    <div class="form-group">
+      <label for="internPassword" class="form-label form-label--required">
+        Senha
+      </label>
+      <div class="input-wrapper">
+        <svg class="input-icon input-icon--password" width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" 
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7 11V7C7 4.8 8.8 3 11 3H13C15.2 3 17 4.8 17 7V11" 
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <input 
+          id="internPassword" 
+          type="password" 
+          class="form-control form-control--password" 
+          placeholder="Digite sua senha" 
+          required
+        >
+        <!-- Botão para mostrar/ocultar senha -->
+        <button type="button" class="password-toggle" aria-label="Mostrar senha" data-target="internPassword">
+          <svg class="toggle-icon toggle-icon--eye" width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" 
+                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="12" cy="12" r="3" 
+                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <svg class="toggle-icon toggle-icon--eye-slash" width="20" height="20" viewBox="0 0 24 24" fill="none" style="display: none;">
+            <path d="M14.8 14.8C13.6 15.9 11.8 16.5 10 15.9C8.2 15.3 7 13.5 7 11.5C7 10.3 7.5 9.2 8.3 8.3M10 4C10.8 4 11.6 4.1 12.4 4.3L17.4 2.3C17.8 2.1 18.3 2.3 18.5 2.7L19.7 5.3C19.9 5.7 19.7 6.2 19.3 6.4L17.5 7.4C18.9 9 19.8 11 19.8 13.2C19.8 17.1 17 20.4 13.2 21.2C12.4 21.4 11.6 21.5 10.8 21.5C6.5 21.5 2.8 18.3 2 13.9" 
+                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 2L22 22" 
+                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
 
-          <!-- Ações -->
-          <div class="form-actions">
-            <button type="submit" id="vwSignInButton" class="btn btn--primary btn--md">
-              <svg class="btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M11 16L13 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M20 21V19C20 17.9 19.1 17 18 17H6C4.9 17 4 17.9 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Sign In
-            </button>
-            <button type="button" id="vwSignOutButton" class="btn btn--outline-primary btn--md">
-              <svg class="btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <path d="M9 21H5C3.9 21 3 20.1 3 19V5C3 3.9 3.9 3 5 3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M16 17L21 12L16 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Sign Out
-            </button>
-          </div>
-        </form>
-      </section>
+    <!-- Ações -->
+    <div class="form-actions">
+      <button type="submit" id="internSignInButton" class="btn btn--primary btn--md">
+        <svg class="btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M11 16L13 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M20 21V19C20 17.9 19.1 17 18 17H6C4.9 17 4 17.9 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Sign In
+      </button>
+      <button type="button" id="internSignOutButton" class="btn btn--outline-primary btn--md">
+        <svg class="btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M9 21H5C3.9 21 3 20.1 3 19V5C3 3.9 3.9 3 5 3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M16 17L21 12L16 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Sign Out
+      </button>
+    </div>
+  </form>
+</section>
 
       <!-- SEÇÃO DE AUTENTICAÇÃO GOOGLE -->
       <section class="form-section" id="googleAuth">

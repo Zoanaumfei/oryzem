@@ -504,3 +504,57 @@
   font-family: var(--font-primary);
   font-size: var(--text-sm);
 }
+
+/* =================================================================
+   15. BOTÃO DE MOSTRAR/OCULTAR SENHA
+   ================================================================= */
+
+.password-toggle {
+  position: absolute;
+  right: var(--space-4);
+  background: none;
+  border: none;
+  padding: var(--space-2);
+  color: var(--vw-gray-500);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--duration-150) var(--ease-in-out);
+  z-index: 10;
+}
+
+.password-toggle:hover {
+  color: var(--vw-blue-500);
+  background-color: var(--vw-gray-100);
+}
+
+.password-toggle:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 199, 0.2);
+}
+
+.toggle-icon {
+  transition: all var(--duration-150) var(--ease-in-out);
+}
+
+/* Ajuste para inputs com botão de mostrar senha */
+.input-wrapper .form-control {
+  padding-right: var(--space-12);
+}
+
+/* Ícones específicos */
+.input-icon--email,
+.input-icon--password {
+  position: absolute;
+  left: var(--space-4);
+  color: var(--vw-gray-500);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Visual para quando a senha está visível */
+.form-control--password[type="text"] {
+  letter-spacing: 0.5px;
+}

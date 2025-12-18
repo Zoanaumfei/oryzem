@@ -9,7 +9,10 @@ import {
   signInWithPopup
 } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
 
-// Firebase Config
+// ============================================
+// CONFIGURAÇÃO DO FIREBASE
+// ============================================
+
 const firebaseConfig = {
   apiKey: "AIzaSyCpx6LjIAgSd6qguI_i-2PfrAbnd4MyXh8",
   authDomain: "oryzemfirebase.firebaseapp.com",
@@ -25,14 +28,31 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 
-// Elementos do DOM
+// ============================================
+// VARIÁVEIS GLOBAIS
+// ============================================
+
 let messageElement, clickMeButton;
 let externEmailInput, externPasswordInput, externSignInButton, externSignOutButton;
 let vwEmailInput, vwPasswordInput, vwSignInButton, vwSignOutButton;
 let googleSignInButton, googleSignOutButton, authStatusElement;
 
+// ============================================
+// INICIALIZAÇÃO DO DOM
+// ============================================
+
 document.addEventListener('DOMContentLoaded', () => {
-  // Elementos antigos (se ainda existirem)
+  initializeElements();
+  setupEventListeners();
+  initializePasswordToggle();
+  
+  // Verificar estado de autenticação inicial
+  updateAuthUI();
+});
+
+// Inicializar elementos do DOM
+function initializeElements() {
+  // Elementos antigos (opcional)
   messageElement = document.getElementById('message');
   clickMeButton = document.getElementById('clickMe');
   
@@ -52,8 +72,11 @@ document.addEventListener('DOMContentLoaded', () => {
   googleSignInButton = document.getElementById('googleSignInButton');
   googleSignOutButton = document.getElementById('googleSignOutButton');
   authStatusElement = document.getElementById('authStatus');
-  
-  // Event Listeners
+}
+
+// Configurar event listeners
+function setupEventListeners() {
+  // Botão antigo (se existir)
   if (clickMeButton && messageElement) {
     clickMeButton.addEventListener('click', () => {
       messageElement.textContent = `Button clicked at ${new Date().toLocaleTimeString()}`;
@@ -61,19 +84,23 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   // Formulário Externo
-  if (externSignInButton) {
-    externSignInButton.addEventListener('click', handleExternSignIn);
+  const externLoginForm = document.getElementById('externLoginForm');
+  if (externLoginForm) {
+    externLoginForm.addEventListener('submit', handleExternFormSubmit);
   }
   
+  // Botões extras do formulário externo
   if (externSignOutButton) {
     externSignOutButton.addEventListener('click', handleSignOut);
   }
   
   // Formulário VW
-  if (vwSignInButton) {
-    vwSignInButton.addEventListener('click', handleVwSignIn);
+  const vwLoginForm = document.getElementById('vwLoginForm');
+  if (vwLoginForm) {
+    vwLoginForm.addEventListener('submit', handleVwFormSubmit);
   }
   
+  // Botões extras do formulário VW
   if (vwSignOutButton) {
     vwSignOutButton.addEventListener('click', handleSignOut);
   }
@@ -87,131 +114,211 @@ document.addEventListener('DOMContentLoaded', () => {
     googleSignOutButton.addEventListener('click', handleSignOut);
   }
   
-  // Form submission
-  const externLoginForm = document.getElementById('externLoginForm');
-  const vwLoginForm = document.getElementById('vwLoginForm');
-  
-  if (externLoginForm) {
-    externLoginForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      handleExternSignIn();
+  // Navegação para dashboard
+  const dashboardLink = document.querySelector('a[href="/dashboard.html"]');
+  if (dashboardLink) {
+    dashboardLink.addEventListener('click', (e) => {
+      if (!auth.currentUser) {
+        e.preventDefault();
+        alert('Por favor, faça login primeiro para acessar o Dashboard.');
+      }
     });
   }
-  
-  if (vwLoginForm) {
-    vwLoginForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      handleVwSignIn();
+}
+
+// ============================================
+// FUNCIONALIDADE DE MOSTRAR/OCULTAR SENHA
+// ============================================
+
+function initializePasswordToggle() {
+  document.querySelectorAll('.password-toggle').forEach(toggle => {
+    // Remover event listeners existentes para evitar duplicação
+    const newToggle = toggle.cloneNode(true);
+    toggle.parentNode.replaceChild(newToggle, toggle);
+    
+    // Adicionar event listener
+    newToggle.addEventListener('click', function() {
+      const targetId = this.getAttribute('data-target');
+      const passwordInput = document.getElementById(targetId);
+      
+      if (!passwordInput) return;
+      
+      const eyeIcon = this.querySelector('.toggle-icon--eye');
+      const eyeSlashIcon = this.querySelector('.toggle-icon--eye-slash');
+      
+      if (passwordInput.type === 'password') {
+        // Mostrar senha
+        passwordInput.type = 'text';
+        if (eyeIcon) eyeIcon.style.display = 'none';
+        if (eyeSlashIcon) eyeSlashIcon.style.display = 'block';
+        this.setAttribute('aria-label', 'Ocultar senha');
+        this.setAttribute('title', 'Clique para ocultar a senha');
+      } else {
+        // Ocultar senha
+        passwordInput.type = 'password';
+        if (eyeIcon) eyeIcon.style.display = 'block';
+        if (eyeSlashIcon) eyeSlashIcon.style.display = 'none';
+        this.setAttribute('aria-label', 'Mostrar senha');
+        this.setAttribute('title', 'Clique para mostrar a senha');
+      }
+      
+      // Focar no input novamente
+      passwordInput.focus();
     });
-  }
-});
+    
+    // Adicionar tooltip inicial
+    newToggle.setAttribute('title', 'Clique para mostrar a senha');
+  });
+}
 
 // ============================================
-// FUNÇÕES DE AUTENTICAÇÃO
+// HANDLERS DE FORMULÁRIOS
 // ============================================
 
-// SIGN IN - Usuário Externo
-async function handleExternSignIn() {
+async function handleExternFormSubmit(e) {
+  e.preventDefault();
+  
   const email = externEmailInput?.value.trim() || '';
   const password = externPasswordInput?.value || '';
   
-  if (!email || !password) {
-    alert('Por favor, preencha todos os campos.');
+  if (!validateEmail(email)) {
+    showError(externEmailInput, 'Por favor, insira um email válido.');
     return;
   }
+  
+  if (!validatePassword(password)) {
+    showError(externPasswordInput, 'A senha deve ter pelo menos 6 caracteres.');
+    return;
+  }
+  
+  clearErrors();
   
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     console.log('Usuário externo autenticado:', userCredential.user);
-    updateAuthStatus(userCredential.user, 'externo');
+    showSuccess('Login realizado com sucesso!');
+    updateAuthUI();
   } catch (err) {
     console.error('Erro na autenticação externa:', err);
     
-    // Verifica se é um novo usuário e tenta criar conta
     if (err.code === 'auth/user-not-found') {
       if (confirm('Usuário não encontrado. Deseja criar uma nova conta?')) {
         await handleExternSignUp(email, password);
       }
+    } else if (err.code === 'auth/wrong-password') {
+      showError(externPasswordInput, 'Senha incorreta. Tente novamente.');
     } else {
-      alert(`Erro: ${err.message || 'Falha na autenticação'}`);
+      showError(null, `Erro: ${err.message || 'Falha na autenticação'}`);
     }
   }
 }
 
-// SIGN UP - Usuário Externo (criação de conta)
-async function handleExternSignUp(email, password) {
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    console.log('Conta externa criada:', userCredential.user);
-    alert('Conta criada com sucesso! Faça login.');
-    updateAuthStatus(userCredential.user, 'externo');
-  } catch (err) {
-    console.error('Erro ao criar conta externa:', err);
-    alert(`Erro ao criar conta: ${err.message || 'Tente novamente'}`);
-  }
-}
-
-// SIGN IN - Usuário VW
-async function handleVwSignIn() {
+async function handleVwFormSubmit(e) {
+  e.preventDefault();
+  
   const email = vwEmailInput?.value.trim() || '';
   const password = vwPasswordInput?.value || '';
   
-  if (!email || !password) {
-    alert('Por favor, preencha todos os campos.');
+  if (!validateEmail(email)) {
+    showError(vwEmailInput, 'Por favor, insira um email válido.');
     return;
   }
   
-  // Verifica se é email corporativo VW (opcional)
+  if (!validatePassword(password)) {
+    showError(vwPasswordInput, 'A senha deve ter pelo menos 6 caracteres.');
+    return;
+  }
+  
+  // Verificação opcional de email corporativo
   if (email && !email.includes('@volkswagen')) {
     const confirmar = confirm('Este não parece ser um email corporativo Volkswagen. Deseja continuar mesmo assim?');
     if (!confirmar) return;
   }
   
+  clearErrors();
+  
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     console.log('Usuário VW autenticado:', userCredential.user);
-    updateAuthStatus(userCredential.user, 'vw');
+    showSuccess('Login realizado com sucesso!');
+    updateAuthUI();
   } catch (err) {
     console.error('Erro na autenticação VW:', err);
     
     if (err.code === 'auth/user-not-found') {
-      alert('Usuário não encontrado. Entre em contato com o administrador.');
+      showError(vwEmailInput, 'Usuário não encontrado. Entre em contato com o administrador.');
+    } else if (err.code === 'auth/wrong-password') {
+      showError(vwPasswordInput, 'Senha incorreta. Tente novamente.');
     } else {
-      alert(`Erro: ${err.message || 'Falha na autenticação'}`);
+      showError(null, `Erro: ${err.message || 'Falha na autenticação'}`);
     }
   }
 }
 
-// SIGN OUT - Geral
-async function handleSignOut() {
+async function handleExternSignUp(email, password) {
   try {
-    await signOut(auth);
-    console.log('Usuário deslogado');
-    updateAuthStatus(null, null);
-    clearFormInputs();
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    console.log('Conta externa criada:', userCredential.user);
+    showSuccess('Conta criada com sucesso! Faça login.');
+    updateAuthUI();
   } catch (err) {
-    console.error('Erro ao deslogar:', err);
-    alert(`Erro: ${err.message || 'Falha ao deslogar'}`);
+    console.error('Erro ao criar conta externa:', err);
+    
+    if (err.code === 'auth/email-already-in-use') {
+      showError(externEmailInput, 'Este email já está em uso.');
+    } else if (err.code === 'auth/invalid-email') {
+      showError(externEmailInput, 'Email inválido.');
+    } else if (err.code === 'auth/weak-password') {
+      showError(externPasswordInput, 'Senha muito fraca. Use pelo menos 6 caracteres.');
+    } else {
+      showError(null, `Erro ao criar conta: ${err.message || 'Tente novamente'}`);
+    }
   }
 }
 
-// SIGN IN with Google
+// ============================================
+// AUTENTICAÇÃO COM GOOGLE
+// ============================================
+
 async function signInWithGoogle() {
   try {
     const result = await signInWithPopup(auth, googleProvider);
     const user = result.user;
     console.log("Google login realizado:", user);
-    updateAuthStatus(user, 'google');
+    showSuccess(`Bem-vindo, ${user.displayName || user.email}!`);
+    updateAuthUI();
   } catch (err) {
     console.error("Erro no Google Sign-In:", err);
     
     if (err.code === 'auth/popup-blocked') {
-      alert('Pop-up bloqueado. Por favor, permita pop-ups para este site.');
+      showError(null, 'Pop-up bloqueado. Por favor, permita pop-ups para este site.');
     } else if (err.code === 'auth/popup-closed-by-user') {
       console.log('Usuário fechou a janela de autenticação.');
     } else {
-      alert(`Erro: ${err.message || 'Falha na autenticação com Google'}`);
+      showError(null, `Erro: ${err.message || 'Falha na autenticação com Google'}`);
     }
+  }
+}
+
+// ============================================
+// LOGOUT
+// ============================================
+
+async function handleSignOut() {
+  if (!auth.currentUser) {
+    showError(null, 'Nenhum usuário está logado.');
+    return;
+  }
+  
+  try {
+    await signOut(auth);
+    console.log('Usuário deslogado');
+    showSuccess('Logout realizado com sucesso!');
+    clearFormInputs();
+    updateAuthUI();
+  } catch (err) {
+    console.error('Erro ao deslogar:', err);
+    showError(null, `Erro: ${err.message || 'Falha ao deslogar'}`);
   }
 }
 
@@ -219,39 +326,140 @@ async function signInWithGoogle() {
 // FUNÇÕES AUXILIARES
 // ============================================
 
-// Atualiza o status de autenticação
-function updateAuthStatus(user, type) {
-  if (!authStatusElement) return;
+// Validação de email
+function validateEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+// Validação de senha
+function validatePassword(password) {
+  return password.length >= 6;
+}
+
+// Mostrar mensagem de erro
+function showError(inputElement, message) {
+  // Limpar erros anteriores
+  clearErrors();
   
-  if (user) {
-    const userName = user.displayName || user.email || 'Usuário';
-    const userType = type === 'externo' ? 'Externo' : 
-                    type === 'vw' ? 'Volkswagen' : 
-                    type === 'google' ? 'Google' : '';
+  // Adicionar classe de erro ao input
+  if (inputElement) {
+    inputElement.classList.add('form-control--invalid');
     
-    authStatusElement.textContent = `Conectado: ${userName} (${userType})`;
-    authStatusElement.className = 'form-help form-help--success';
+    // Criar elemento de mensagem de erro
+    const errorElement = document.createElement('div');
+    errorElement.className = 'form-help form-help--error';
+    errorElement.textContent = message;
     
-    // Opcional: desabilitar botões de sign in
-    disableSignInButtons(true);
+    // Inserir após o input
+    const wrapper = inputElement.closest('.input-wrapper') || inputElement.parentElement;
+    wrapper.appendChild(errorElement);
+  } else if (authStatusElement) {
+    // Usar authStatus para mensagens gerais
+    authStatusElement.textContent = message;
+    authStatusElement.className = 'form-help form-help--error';
   } else {
-    authStatusElement.textContent = 'Desconectado';
-    authStatusElement.className = 'form-help form-help--info';
-    
-    // Habilitar botões de sign in
-    disableSignInButtons(false);
+    alert(message);
   }
 }
 
-// Limpa os campos dos formulários
+// Mostrar mensagem de sucesso
+function showSuccess(message) {
+  if (authStatusElement) {
+    authStatusElement.textContent = message;
+    authStatusElement.className = 'form-help form-help--success';
+    
+    // Remover mensagem após 3 segundos
+    setTimeout(() => {
+      if (authStatusElement.textContent === message) {
+        updateAuthStatus();
+      }
+    }, 3000);
+  } else {
+    alert(message);
+  }
+}
+
+// Limpar erros
+function clearErrors() {
+  // Remover classes de erro dos inputs
+  document.querySelectorAll('.form-control--invalid').forEach(el => {
+    el.classList.remove('form-control--invalid');
+  });
+  
+  // Remover mensagens de erro
+  document.querySelectorAll('.form-help--error').forEach(el => {
+    el.remove();
+  });
+  
+  // Resetar authStatus se estiver mostrando erro
+  if (authStatusElement && authStatusElement.classList.contains('form-help--error')) {
+    updateAuthStatus();
+  }
+}
+
+// Limpar campos dos formulários
 function clearFormInputs() {
   if (externEmailInput) externEmailInput.value = '';
   if (externPasswordInput) externPasswordInput.value = '';
   if (vwEmailInput) vwEmailInput.value = '';
   if (vwPasswordInput) vwPasswordInput.value = '';
+  
+  // Resetar ícones de mostrar senha
+  document.querySelectorAll('.password-toggle').forEach(toggle => {
+    const eyeIcon = toggle.querySelector('.toggle-icon--eye');
+    const eyeSlashIcon = toggle.querySelector('.toggle-icon--eye-slash');
+    
+    if (eyeIcon) eyeIcon.style.display = 'block';
+    if (eyeSlashIcon) eyeSlashIcon.style.display = 'none';
+  });
 }
 
-// Habilita/desabilita botões de sign in
+// Atualizar interface baseada no estado de autenticação
+function updateAuthUI() {
+  const user = auth.currentUser;
+  
+  if (user) {
+    updateAuthStatus(user);
+    disableSignInButtons(true);
+    
+    // Preencher automaticamente o formulário correspondente
+    const email = user.email || '';
+    if (email.includes('@volkswagen') && vwEmailInput) {
+      vwEmailInput.value = email;
+    } else if (externEmailInput) {
+      externEmailInput.value = email;
+    }
+  } else {
+    updateAuthStatus(null);
+    disableSignInButtons(false);
+  }
+}
+
+// Atualizar status de autenticação
+function updateAuthStatus(user = null) {
+  if (!authStatusElement) return;
+  
+  if (user) {
+    const userName = user.displayName || user.email || 'Usuário';
+    const provider = user.providerData && user.providerData[0];
+    let userType = 'Externo';
+    
+    if (user.email && user.email.includes('@volkswagen')) {
+      userType = 'Volkswagen';
+    } else if (provider && provider.providerId === 'google.com') {
+      userType = 'Google';
+    }
+    
+    authStatusElement.textContent = `Conectado: ${userName} (${userType})`;
+    authStatusElement.className = 'form-help form-help--success';
+  } else {
+    authStatusElement.textContent = 'Desconectado';
+    authStatusElement.className = 'form-help form-help--info';
+  }
+}
+
+// Habilita/desabilita botões de login
 function disableSignInButtons(disable) {
   const signInButtons = [
     externSignInButton, 
@@ -263,63 +471,41 @@ function disableSignInButtons(disable) {
     if (button) {
       button.disabled = disable;
       button.style.opacity = disable ? '0.6' : '1';
+      button.style.cursor = disable ? 'not-allowed' : 'pointer';
     }
   });
 }
 
 // ============================================
-// LISTENER DE ESTADO DE AUTENTICAÇÃO
+// LISTENER DE ESTADO DE AUTENTICAÇÃO DO FIREBASE
 // ============================================
 
 onAuthStateChanged(auth, (user) => {
+  updateAuthUI();
+  
+  // Log para debug
   if (user) {
-    // Usuário já está logado - determinar tipo pelo email
-    const email = user.email || '';
-    let userType = 'externo';
-    
-    if (email.includes('@volkswagen')) {
-      userType = 'vw';
-    } else if (user.providerData && user.providerData[0].providerId === 'google.com') {
-      userType = 'google';
-    }
-    
-    updateAuthStatus(user, userType);
-    
-    // Preencher automaticamente o formulário correspondente
-    if (userType === 'externo' && externEmailInput) {
-      externEmailInput.value = email;
-    } else if (userType === 'vw' && vwEmailInput) {
-      vwEmailInput.value = email;
-    }
+    console.log('Usuário autenticado:', {
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      provider: user.providerData && user.providerData[0]?.providerId
+    });
   } else {
-    updateAuthStatus(null, null);
+    console.log('Nenhum usuário autenticado');
   }
 });
 
 // ============================================
-// FUNCIONALIDADE OPCIONAL: MOSTRAR/OCULTAR SENHA
+// EXPORT PARA MÓDULOS (se necessário)
 // ============================================
 
-// Se quiser adicionar essa funcionalidade posteriormente:
-document.querySelectorAll('.password-toggle').forEach(toggle => {
-  toggle.addEventListener('click', function() {
-    const input = this.closest('.input-wrapper').querySelector('input[type="password"], input[type="text"]');
-    const icon = this.querySelector('svg');
-    
-    if (input.type === 'password') {
-      input.type = 'text';
-      this.setAttribute('aria-label', 'Ocultar senha');
-      // Mudar ícone para olho fechado
-      if (icon) {
-        icon.innerHTML = `<path d="M14.8 14.8C13.6 15.9 11.8 16.5 10 15.9C8.2 15.3 7 13.5 7 11.5C7 10.3 7.5 9.2 8.3 8.3M10 4C10.8 4 11.6 4.1 12.4 4.3L17.4 2.3C17.8 2.1 18.3 2.3 18.5 2.7L19.7 5.3C19.9 5.7 19.7 6.2 19.3 6.4L17.5 7.4C18.9 9 19.8 11 19.8 13.2C19.8 17.1 17 20.4 13.2 21.2C12.4 21.4 11.6 21.5 10.8 21.5C6.5 21.5 2.8 18.3 2 13.9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 2L22 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`;
-      }
-    } else {
-      input.type = 'password';
-      this.setAttribute('aria-label', 'Mostrar senha');
-      // Voltar para ícone de olho aberto
-      if (icon) {
-        icon.innerHTML = `<path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`;
-      }
-    }
-  });
-});
+// Exportar funções se necessário para outros módulos
+export {
+  auth,
+  handleExternFormSubmit,
+  handleVwFormSubmit,
+  signInWithGoogle,
+  handleSignOut,
+  updateAuthUI
+};
