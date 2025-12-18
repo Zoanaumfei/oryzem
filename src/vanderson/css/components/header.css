@@ -1,0 +1,444 @@
+/* ============================================
+   VOLKSWAGEN HEADER SYSTEM
+   Header moderno integrado ao design system VW
+   ============================================ */
+
+/* =================================================================
+   1. HEADER PRINCIPAL
+   ================================================================= */
+
+.site-header {
+    /* Layout */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    /* Espaçamento */
+    padding: var(--space-4) var(--space-6);
+    
+    /* Cores Volkswagen */
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--header-border);
+    
+    /* Posicionamento */
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    
+    /* Transição suave */
+    transition: all var(--duration-300) var(--ease-in-out);
+}
+
+/* Header com scroll */
+.site-header.scrolled {
+    padding: var(--space-3) var(--space-6);
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+@media (prefers-color-scheme: dark) {
+    .site-header.scrolled {
+        background-color: rgba(26, 29, 33, 0.95);
+    }
+}
+
+/* =================================================================
+   2. LOGO & MARCA
+   ================================================================= */
+
+.header__brand {
+    /* Layout */
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    flex-shrink: 0;
+}
+
+/* Container da logo */
+.header__logo {
+    /* Layout */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Dimensões */
+    width: 48px;
+    height: 48px;
+    
+    /* Visual */
+    background-color: var(--vw-blue-500);
+    border-radius: var(--radius-base);
+    
+    /* Transição */
+    transition: all var(--duration-200) var(--ease-in-out);
+}
+
+.header__logo:hover {
+    background-color: var(--vw-blue-600);
+    transform: scale(1.05);
+}
+
+/* Imagem da logo */
+.header__logo-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* Torna a logo branca */
+}
+
+/* Logo em texto (fallback) */
+.header__logo-text {
+    font-family: var(--font-secondary);
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    color: var(--vw-blue-500);
+    text-decoration: none;
+}
+
+/* =================================================================
+   3. CONTEÚDO DO HEADER (TÍTULO E SUBTÍTULO)
+   ================================================================= */
+
+.header__content {
+    /* Layout */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0 var(--space-6);
+    
+    /* Overflow control */
+    min-width: 0;
+    overflow: hidden;
+}
+
+/* Título principal */
+.header__title {
+    /* Tipografia */
+    font-family: var(--font-primary);
+    font-size: clamp(var(--text-lg), 2vw, var(--text-2xl));
+    font-weight: var(--font-semibold);
+    line-height: var(--leading-tight);
+    color: var(--header-text);
+    
+    /* Layout */
+    margin: 0 0 var(--space-1) 0;
+    
+    /* Texto longo */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+/* Subtítulo */
+.header__subtitle {
+    /* Tipografia */
+    font-family: var(--font-primary);
+    font-size: var(--text-sm);
+    font-weight: var(--font-normal);
+    line-height: var(--leading-normal);
+    color: var(--vw-gray-600);
+    
+    /* Layout */
+    margin: 0;
+    
+    /* Texto longo */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+/* Link no subtítulo */
+.header__subtitle a {
+    color: var(--vw-blue-500);
+    text-decoration: none;
+    transition: color var(--duration-150) var(--ease-in-out);
+}
+
+.header__subtitle a:hover {
+    color: var(--vw-blue-600);
+    text-decoration: underline;
+}
+
+/* =================================================================
+   4. AÇÕES DO HEADER (BOTÕES)
+   ================================================================= */
+
+.header__actions {
+    /* Layout */
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-shrink: 0;
+}
+
+/* =================================================================
+   5. HEADER MINIMALISTA (PARA PÁGINAS INTERNAS)
+   ================================================================= */
+
+.header--minimal {
+    background-color: transparent;
+    border-bottom: none;
+    padding: var(--space-6);
+}
+
+.header--minimal .header__title {
+    font-size: clamp(var(--text-xl), 2.5vw, var(--text-3xl));
+    font-weight: var(--font-bold);
+    color: var(--vw-gray-900);
+}
+
+.header--minimal .header__subtitle {
+    color: var(--vw-gray-700);
+    font-size: var(--text-base);
+}
+
+/* =================================================================
+   6. HEADER COM MENU DE NAVEGAÇÃO
+   ================================================================= */
+
+.header--with-nav {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: var(--space-6);
+    align-items: center;
+}
+
+/* Navegação */
+.header__nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.header__nav-link {
+    font-family: var(--font-primary);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--vw-gray-700);
+    text-decoration: none;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-base);
+    transition: all var(--duration-150) var(--ease-in-out);
+}
+
+.header__nav-link:hover {
+    color: var(--vw-blue-500);
+    background-color: var(--vw-gray-100);
+}
+
+.header__nav-link--active {
+    color: var(--vw-blue-500);
+    background-color: var(--vw-gray-100);
+}
+
+/* =================================================================
+   7. RESPONSIVIDADE
+   ================================================================= */
+
+/* Tablets e telas menores */
+@media (max-width: 768px) {
+    .site-header {
+        padding: var(--space-3) var(--space-4);
+        flex-wrap: wrap;
+        gap: var(--space-4);
+    }
+    
+    .header__content {
+        order: 3;
+        flex: 0 0 100%;
+        margin: var(--space-2) 0 0 0;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .header__title {
+        white-space: normal;
+        text-align: center;
+        font-size: var(--text-lg);
+    }
+    
+    .header__subtitle {
+        white-space: normal;
+        text-align: center;
+    }
+    
+    .header__actions {
+        gap: var(--space-2);
+    }
+    
+    .header--with-nav {
+        grid-template-columns: auto auto;
+    }
+    
+    .header__nav {
+        display: none; /* Ou implementar menu hamburguer */
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .site-header {
+        padding: var(--space-3);
+        gap: var(--space-3);
+    }
+    
+    .header__brand {
+        gap: var(--space-3);
+    }
+    
+    .header__logo {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .header__logo-img {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .header__actions {
+        flex-direction: column;
+        gap: var(--space-2);
+        align-items: stretch;
+    }
+    
+    .header__actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* =================================================================
+   8. UTILITÁRIOS ESPECÍFICOS DO HEADER
+   ================================================================= */
+
+/* Separador vertical */
+.header__divider {
+    width: 1px;
+    height: 24px;
+    background-color: var(--vw-gray-300);
+    margin: 0 var(--space-4);
+}
+
+/* Badge de notificação */
+.header__badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--vw-accent-500);
+    color: var(--vw-white);
+    font-size: var(--text-xs);
+    font-weight: var(--font-bold);
+    min-width: 20px;
+    height: 20px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 var(--space-1);
+}
+
+/* Menu de usuário */
+.header__user {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-lg);
+    transition: background-color var(--duration-150) var(--ease-in-out);
+    cursor: pointer;
+}
+
+.header__user:hover {
+    background-color: var(--vw-gray-100);
+}
+
+.header__user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    background-color: var(--vw-blue-500);
+    color: var(--vw-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--font-bold);
+    font-size: var(--text-sm);
+}
+
+.header__user-name {
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--vw-gray-700);
+}
+
+/* =================================================================
+   9. ANIMAÇÕES
+   ================================================================= */
+
+@keyframes header-slide-down {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.site-header {
+    animation: header-slide-down var(--duration-300) var(--ease-out);
+}
+
+/* =================================================================
+   10. EXEMPLOS DE USO
+   ================================================================= */
+
+/*
+  HTML BÁSICO:
+  
+  <header class="site-header">
+    <div class="header__brand">
+      <a href="/" class="header__logo">
+        <img src="assets/logo-vw.svg" alt="Volkswagen" class="header__logo-img">
+      </a>
+    </div>
+    
+    <div class="header__content">
+      <h1 class="header__title">VW Supply - Solicitacao de revitalizacao</h1>
+      <p class="header__subtitle">
+        <a href="/index.html">Back to choose a page</a>
+      </p>
+    </div>
+    
+    <div class="header__actions">
+      <button id="externSignInButton" class="btn btn--primary btn--sm">Sign In</button>
+      <button id="signOutButton" class="btn btn--outline-primary btn--sm">Sign Out</button>
+    </div>
+  </header>
+
+  HTML COM NAVEGAÇÃO:
+  
+  <header class="site-header header--with-nav">
+    <div class="header__brand">
+      <a href="/" class="header__logo">
+        <img src="assets/logo-vw.svg" alt="Volkswagen" class="header__logo-img">
+      </a>
+    </div>
+    
+    <nav class="header__nav">
+      <a href="/dashboard" class="header__nav-link">Dashboard</a>
+      <a href="/requests" class="header__nav-link header__nav-link--active">Solicitações</a>
+      <a href="/reports" class="header__nav-link">Relatórios</a>
+    </nav>
+    
+    <div class="header__actions">
+      <button id="externSignInButton" class="btn btn--primary btn--sm">Sign In</button>
+    </div>
+  </header>
+*/

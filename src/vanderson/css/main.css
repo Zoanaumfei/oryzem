@@ -5,8 +5,8 @@
 @import url(/src/vanderson/css/base/variables.css);
 
 /* 2. Componentes */
-@import url(/src/vanderson/css/components/buttons);
-/* @import url('components/header.css');
+@import url(/src/vanderson/css/components/buttons.css);
+@import url(/src/vanderson/css/components/header.css);
 /* @import url('components/forms.css');
 
 /* 3. Layout */

@@ -9,14 +9,20 @@
 </head>
 
 <body>  
-  <header class="header-flex">
-    <div class="logo-container">
-      <img src="/src/vanderson/images/volkswagen-logo.png" alt="VW Supply" class="logo">
-    </div>
-    <div class="header-content">
-      <h1>VW Supply - Solicitacao de revitalizacao</h1>
+  <header class="site-header">
+    <!-- Logo/Marca -->
+    <div class="header__brand">
+      <img src="/src/vanderson/images/volkswagen-logo.png" alt="VW Supply" class="header__logo-img">
     </div>
   </header>
+
+  <!-- Conteúdo Principal -->
+   <div class="header__content">
+    <h1 class="header__title">VW Supply - Solicitacao de revitalizacao</h1>
+    <p class="header__subtitle">
+      <a href="/index.html">Back to choose a page</a>
+    </p>
+  </div>
 
   <main>
     <section id="Dashboard">
@@ -29,7 +35,7 @@
       <h3>Usuario Externo</h2>
       <input id="externEmail" type="email" placeholder="Email" />
       <input id="externPassword" type="password" placeholder="Password" />
-      <div>
+      <div class="header__actions">
         <button id="externSignInButton" class="btn btn--primary btn--md" >Sign In</button>
         <button id="externSignOutButton"class="btn btn--primary btn--md" >Sign Out</button>
       </div>
@@ -39,7 +45,7 @@
       <h3>Usuario Volkswagen do Brasil</h2>
       <input id="vwEmail" type="email" placeholder="Email" />
       <input id="vwPassword" type="password" placeholder="Password" />
-      <div>
+      <div class="header__actions">
         <button id="vwSignInButton" class="btn btn--primary btn--md" >Sign In</button>
         <button id="vwSignOutButton"class="btn btn--primary btn--md" >Sign Out</button>
       </div>
