@@ -365,3 +365,38 @@
 .form-control--error {
     animation: form-shake var(--duration-500) var(--ease-in-out);
 }
+
+/* =================================================================
+   10. LAYOUT E GRID
+   ================================================================= */
+
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-6);
+}
+
+.forms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--space-6);
+    margin-bottom: var(--space-8);
+}
+
+@media (max-width: 768px) {
+    .forms-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+}
+
+.navigation-section {
+    text-align: center;
+    padding: var(--space-6);
+    border-top: 1px solid var(--vw-gray-200);
+    margin-top: var(--space-8);
+}
+
+.dashboard-links {
+    margin-top: var(--space-4);
+}
