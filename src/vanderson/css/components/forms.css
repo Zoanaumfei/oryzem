@@ -400,3 +400,107 @@
 .dashboard-links {
     margin-top: var(--space-4);
 }
+
+/* =================================================================
+   11. INPUT COM ÍCONES SVG
+   ================================================================= */
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: var(--space-4);
+  color: var(--vw-gray-500);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.input-wrapper .form-control {
+  padding-left: var(--space-12);
+  width: 100%;
+}
+
+/* Remove as classes antigas que não usaremos mais */
+.form-control--with-icon,
+.input-email,
+.input-password {
+  /* Mantenha compatibilidade temporária */
+  padding-left: var(--space-12) !important;
+}
+
+/* =================================================================
+   12. ÍCONES NOS BOTÕES
+   ================================================================= */
+
+.btn__icon {
+  margin-right: var(--space-2);
+  vertical-align: middle;
+}
+
+.btn--primary .btn__icon,
+.btn--outline-primary .btn__icon,
+.btn--outline-secondary .btn__icon,
+.btn--link .btn__icon,
+.btn--secondary .btn__icon {
+  stroke: currentColor;
+  fill: none;
+}
+
+.btn--google .btn__icon {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* Botão Google específico */
+.btn--google {
+  background-color: #4285F4;
+  color: white;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn--google:hover {
+  background-color: #3367D6;
+}
+
+.btn--google .btn__icon {
+  margin-right: var(--space-3);
+}
+
+/* =================================================================
+   13. BOTÕES COM ÍCONES
+   ================================================================= */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =================================================================
+   14. MELHORIAS NA NAVEGAÇÃO
+   ================================================================= */
+
+.navigation-section {
+  text-align: center;
+  padding: var(--space-6);
+  border-top: 1px solid var(--vw-gray-200);
+  margin-top: var(--space-8);
+}
+
+.dashboard-links {
+  margin-top: var(--space-4);
+}
+
+.dashboard-links p {
+  margin-bottom: var(--space-2);
+  color: var(--vw-gray-700);
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+}
