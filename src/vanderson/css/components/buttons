@@ -1,20 +1,595 @@
-/* Base para todos os botões */
+/* ============================================
+   VOLKSWAGEN BUTTON SYSTEM
+   Sistema completo de botões baseado no design system VW
+   ============================================ */
+
+/* =================================================================
+   1. BASE & RESET PARA TODOS OS BOTÕES
+   ================================================================= */
+
+/* Reset base para todos os elementos button */
 button {
+    all: unset;
+    box-sizing: border-box;
     font-family: inherit;
     cursor: pointer;
-    border: none;
-    transition: all 0.2s;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
-/* Classes de botões */
+/* Classe base para todos os botões estilizados */
 .btn {
-    padding: var(--spacing-sm) var(--spacing-lg);
-    border-radius: var(--border-radius);
-    font-size: var(--font-size-base);
+    /* Layout */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    position: relative;
+    overflow: hidden;
+    
+    /* Tipografia */
+    font-family: var(--font-primary);
+    font-weight: var(--font-medium);
+    line-height: var(--leading-normal);
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    
+    /* Bordas e visual */
+    border-style: solid;
+    border-width: 2px;
+    transition: all var(--duration-200) var(--ease-in-out);
+    
+    /* Interação */
+    cursor: pointer;
+    user-select: none;
+    
+    /* Remove estilos mobile */
+    -webkit-tap-highlight-color: transparent;
 }
 
-.btn--primary {
-    background-color: var(--primary-color);
-    color: white;
+/* =================================================================
+   2. VARIAÇÕES DE TAMANHO
+   ================================================================= */
+
+.btn--xs {
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--text-xs);
+    border-radius: var(--radius-sm);
+    min-height: 28px;
 }
-/* ... resto do sistema de botões que mostrei antes */
+
+.btn--sm {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+    border-radius: var(--radius-base);
+    min-height: 36px;
+}
+
+.btn--md {
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--text-base);
+    border-radius: var(--radius-lg);
+    min-height: 44px;
+}
+
+.btn--lg {
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--text-lg);
+    border-radius: var(--radius-xl);
+    min-height: 52px;
+}
+
+.btn--xl {
+    padding: var(--space-5) var(--space-10);
+    font-size: var(--text-xl);
+    border-radius: var(--radius-2xl);
+    min-height: 60px;
+}
+
+/* =================================================================
+   3. VARIAÇÕES DE COR/VARIANTE
+   ================================================================= */
+
+/* ----- Primário (Azul Volkswagen) ----- */
+.btn--primary {
+    background-color: var(--vw-blue-500);
+    border-color: var(--vw-blue-500);
+    color: var(--vw-white);
+}
+
+.btn--primary:hover:not(:disabled) {
+    background-color: var(--vw-blue-600);
+    border-color: var(--vw-blue-600);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn--primary:active:not(:disabled) {
+    background-color: var(--vw-blue-700);
+    border-color: var(--vw-blue-700);
+    transform: translateY(0);
+}
+
+/* ----- Secundário ----- */
+.btn--secondary {
+    background-color: var(--vw-gray-200);
+    border-color: var(--vw-gray-200);
+    color: var(--vw-gray-800);
+}
+
+.btn--secondary:hover:not(:disabled) {
+    background-color: var(--vw-gray-300);
+    border-color: var(--vw-gray-300);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ----- Accent (Vermelho Volkswagen) ----- */
+.btn--accent {
+    background-color: var(--vw-accent-500);
+    border-color: var(--vw-accent-500);
+    color: var(--vw-white);
+}
+
+.btn--accent:hover:not(:disabled) {
+    background-color: var(--vw-accent-600);
+    border-color: var(--vw-accent-600);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(228, 0, 43, 0.2);
+}
+
+/* ----- Sucesso ----- */
+.btn--success {
+    background-color: var(--vw-success-500);
+    border-color: var(--vw-success-500);
+    color: var(--vw-white);
+}
+
+.btn--success:hover:not(:disabled) {
+    background-color: var(--vw-success-600);
+    border-color: var(--vw-success-600);
+}
+
+/* ----- Aviso ----- */
+.btn--warning {
+    background-color: var(--vw-warning-500);
+    border-color: var(--vw-warning-500);
+    color: var(--vw-gray-900);
+}
+
+.btn--warning:hover:not(:disabled) {
+    background-color: var(--vw-warning-600);
+    border-color: var(--vw-warning-600);
+}
+
+/* ----- Outline Primary ----- */
+.btn--outline-primary {
+    background-color: transparent;
+    border-color: var(--vw-blue-500);
+    color: var(--vw-blue-500);
+}
+
+.btn--outline-primary:hover:not(:disabled) {
+    background-color: var(--vw-blue-500);
+    color: var(--vw-white);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ----- Outline Secondary ----- */
+.btn--outline-secondary {
+    background-color: transparent;
+    border-color: var(--vw-gray-400);
+    color: var(--vw-gray-700);
+}
+
+.btn--outline-secondary:hover:not(:disabled) {
+    background-color: var(--vw-gray-100);
+    border-color: var(--vw-gray-500);
+}
+
+/* ----- Ghost (transparente) ----- */
+.btn--ghost {
+    background-color: transparent;
+    border-color: transparent;
+    color: var(--vw-blue-500);
+}
+
+.btn--ghost:hover:not(:disabled) {
+    background-color: rgba(0, 123, 199, 0.1);
+}
+
+.btn--ghost-secondary {
+    background-color: transparent;
+    border-color: transparent;
+    color: var(--vw-gray-700);
+}
+
+.btn--ghost-secondary:hover:not(:disabled) {
+    background-color: var(--vw-gray-100);
+}
+
+/* ----- Link ----- */
+.btn--link {
+    background-color: transparent;
+    border-color: transparent;
+    color: var(--vw-blue-500);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.btn--link:hover:not(:disabled) {
+    color: var(--vw-blue-600);
+    text-decoration-thickness: 2px;
+}
+
+/* =================================================================
+   4. ESTADOS ESPECIAIS
+   ================================================================= */
+
+/* Desabilitado */
+.btn:disabled,
+.btn--disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Loading */
+.btn--loading {
+    color: transparent !important;
+    pointer-events: none;
+}
+
+.btn--loading::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-top: -8px;
+    margin-left: -8px;
+    border: 2px solid currentColor;
+    border-radius: var(--radius-full);
+    border-right-color: transparent;
+    animation: btn-spin 0.75s linear infinite;
+}
+
+/* Ativo/selecionado */
+.btn--active {
+    background-color: var(--vw-blue-700) !important;
+    border-color: var(--vw-blue-700) !important;
+    color: var(--vw-white) !important;
+    box-shadow: var(--shadow-inner);
+}
+
+/* Full width */
+.btn--full {
+    width: 100%;
+    display: flex;
+}
+
+/* =================================================================
+   5. BOTÕES COM ÍCONES
+   ================================================================= */
+
+/* Ícone à esquerda */
+.btn--icon-left .btn__icon {
+    order: -1;
+    margin-right: var(--space-2);
+}
+
+/* Ícone à direita */
+.btn--icon-right .btn__icon {
+    order: 1;
+    margin-left: var(--space-2);
+}
+
+/* Apenas ícone (botões quadrados/circulares) */
+.btn--icon-only {
+    padding: var(--space-2);
+    width: var(--space-10);
+    height: var(--space-10);
+    min-width: auto;
+    min-height: auto;
+}
+
+.btn--icon-only.btn--sm {
+    width: var(--space-8);
+    height: var(--space-8);
+    padding: var(--space-1);
+}
+
+.btn--icon-only.btn--lg {
+    width: var(--space-12);
+    height: var(--space-12);
+    padding: var(--space-3);
+}
+
+.btn--icon-only.btn--xl {
+    width: var(--space-16);
+    height: var(--space-16);
+    padding: var(--space-4);
+}
+
+/* Ícone arredondado */
+.btn--icon-rounded {
+    border-radius: var(--radius-full);
+}
+
+/* Estilo do ícone SVG */
+.btn__icon {
+    width: 1.25em;
+    height: 1.25em;
+    flex-shrink: 0;
+    fill: currentColor;
+}
+
+/* =================================================================
+   6. ANIMAÇÕES E EFEITOS ESPECIAIS
+   ================================================================= */
+
+/* Animação de spin para loading */
+@keyframes btn-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Efeito de ripple (onda) */
+.btn--ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn--ripple::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(10, 10);
+    opacity: 0;
+    transition: transform .5s, opacity 1s;
+}
+
+.btn--ripple:active::after {
+    transform: scale(0, 0);
+    opacity: .3;
+    transition: 0s;
+}
+
+/* Efeito de gradiente */
+.btn--gradient {
+    background: linear-gradient(135deg, var(--vw-blue-500) 0%, var(--vw-blue-700) 100%);
+    border: none;
+}
+
+.btn--gradient:hover:not(:disabled) {
+    background: linear-gradient(135deg, var(--vw-blue-600) 0%, var(--vw-blue-800) 100%);
+}
+
+/* Elevação (sombras mais pronunciadas) */
+.btn--elevated {
+    box-shadow: var(--shadow-lg);
+}
+
+.btn--elevated:hover:not(:disabled) {
+    box-shadow: var(--shadow-xl);
+}
+
+/* =================================================================
+   7. GRUPOS DE BOTÕES
+   ================================================================= */
+
+.btn-group {
+    display: inline-flex;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-group .btn {
+    border-radius: 0;
+    margin: 0;
+    border-right-width: 1px;
+}
+
+.btn-group .btn:first-child {
+    border-top-left-radius: var(--radius-lg);
+    border-bottom-left-radius: var(--radius-lg);
+}
+
+.btn-group .btn:last-child {
+    border-right-width: 2px;
+    border-top-right-radius: var(--radius-lg);
+    border-bottom-right-radius: var(--radius-lg);
+}
+
+.btn-group .btn:not(:first-child):not(:last-child) {
+    border-right-width: 1px;
+}
+
+/* Grupo vertical */
+.btn-group--vertical {
+    flex-direction: column;
+}
+
+.btn-group--vertical .btn {
+    width: 100%;
+    border-right-width: 2px;
+    border-bottom-width: 1px;
+}
+
+.btn-group--vertical .btn:first-child {
+    border-top-left-radius: var(--radius-lg);
+    border-top-right-radius: var(--radius-lg);
+    border-bottom-left-radius: 0;
+}
+
+.btn-group--vertical .btn:last-child {
+    border-bottom-width: 2px;
+    border-bottom-left-radius: var(--radius-lg);
+    border-bottom-right-radius: var(--radius-lg);
+    border-top-right-radius: 0;
+}
+
+/* =================================================================
+   8. BOTÕES ESPECIAIS (CUSTOMIZADOS)
+   ================================================================= */
+
+/* Botão com badge/notificação */
+.btn--badge {
+    position: relative;
+}
+
+.btn__badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--vw-accent-500);
+    color: var(--vw-white);
+    font-size: var(--text-xs);
+    font-weight: var(--font-bold);
+    min-width: 20px;
+    height: 20px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 var(--space-1);
+    border: 2px solid currentColor;
+}
+
+/* Botão com dropdown */
+.btn--dropdown {
+    position: relative;
+    padding-right: var(--space-8);
+}
+
+.btn--dropdown::after {
+    content: "";
+    position: absolute;
+    right: var(--space-3);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid currentColor;
+}
+
+/* Botão com efeito "pill" */
+.btn--pill {
+    border-radius: var(--radius-full);
+}
+
+/* =================================================================
+   9. FOCUS VISIBLE (ACESSIBILIDADE)
+   ================================================================= */
+
+.btn:focus-visible {
+    outline: 2px solid var(--vw-blue-300);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(0, 123, 199, 0.1);
+}
+
+/* Para navegadores sem suporte a focus-visible */
+.btn:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* =================================================================
+   10. UTILITÁRIOS ADICIONAIS
+   ================================================================= */
+
+/* Espaçamento entre botões */
+.btn + .btn {
+    margin-left: var(--space-3);
+}
+
+/* Container responsivo para grupos de botões */
+.buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    align-items: center;
+}
+
+.buttons-container--vertical {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.buttons-container--center {
+    justify-content: center;
+}
+
+.buttons-container--right {
+    justify-content: flex-end;
+}
+
+/* =================================================================
+   11. RESPONSIVIDADE
+   ================================================================= */
+
+@media (max-width: 640px) {
+    .btn--md {
+        padding: var(--space-2) var(--space-4);
+        font-size: var(--text-sm);
+    }
+    
+    .btn--lg {
+        padding: var(--space-3) var(--space-6);
+        font-size: var(--text-base);
+    }
+    
+    .buttons-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .btn + .btn {
+        margin-left: 0;
+        margin-top: var(--space-3);
+    }
+}
+
+/* =================================================================
+   12. EXEMPLOS DE USO (para referência)
+   ================================================================= */
+
+/*
+  USO NO HTML:
+  
+  <!-- Botão primário padrão -->
+  <button class="btn btn--primary btn--md">Entrar</button>
+  
+  <!-- Botão com ícone -->
+  <button class="btn btn--primary btn--md btn--icon-left">
+    <svg class="btn__icon">...</svg>
+    Entrar
+  </button>
+  
+  <!-- Botão outline -->
+  <button class="btn btn--outline-primary btn--sm">Cancelar</button>
+  
+  <!-- Botão full width -->
+  <button class="btn btn--primary btn--md btn--full">Confirmar</button>
+  
+  <!-- Grupo de botões -->
+  <div class="btn-group">
+    <button class="btn btn--secondary">Esquerda</button>
+    <button class="btn btn--secondary">Centro</button>
+    <button class="btn btn--secondary">Direita</button>
+  </div>
+*/
