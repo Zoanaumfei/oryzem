@@ -59,7 +59,7 @@ function login(email, password, expectedGroup) {
     })
   );
 
-  window.location.href = "src/vanderson/html/first-access.html";
+  window.location.href = "/first-access.html";
 }
 
   });
