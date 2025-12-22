@@ -85,8 +85,8 @@ function setupEventListeners() {
   
   // Formulário Externo
   const externLoginForm = document.getElementById('externLoginForm');
-  if (externLoginForm) {
-    externLoginForm.addEventListener('submit', handleExternFormSubmit);
+  if (externSignInButton) {
+    externSignInButton.addEventListener('submit', handleExternFormSubmit);
   }
   
   // Botões extras do formulário externo
