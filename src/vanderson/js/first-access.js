@@ -6,8 +6,7 @@ document
     e.preventDefault();
 
     const newPassword = document.getElementById("newPassword").value;
-    const confirmPassword =
-      document.getElementById("confirmPassword").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
 
     if (newPassword !== confirmPassword) {
       alert("As senhas não coincidem.");
@@ -18,7 +17,7 @@ document
 
     if (!storedData) {
       alert("Sessão expirada. Faça login novamente.");
-      window.location.href = "/login.html";
+      window.location.replace("/login.html");
       return;
     }
 
@@ -46,11 +45,14 @@ document
           sessionStorage.removeItem("cognitoNewPasswordUser");
 
           if (groups.includes("ADMIN")) {
-            window.location.href = "/admin/dashboard.html";
+           // window.location.href = "/admin/dashboard.html";
+           alert("REDICIONADO PARA A PAGINA DE ADMIN.");
           } else if (groups.includes("INTERNAL")) {
-            window.location.href = "/internal/dashboard.html";
+           // window.location.href = "/internal/dashboard.html";
+           alert("REDICIONADO PARA A PAGINA DE INTERNAL.");
           } else {
-            window.location.href = "/external/home.html";
+           // window.location.href = "/external/home.html";
+           alert("REDICIONADO PARA A PAGINA DE EXTERNAL.");
           }
         },
 
