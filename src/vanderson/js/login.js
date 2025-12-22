@@ -59,7 +59,7 @@ function login(email, password, expectedGroup) {
     })
   );
 
-  window.location.href = "/first-access.html";
+  window.location.href = "../html/first-acess.html";
 }
 
   });
