@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Primeiro acesso</title>
+  <link rel="stylesheet" href="/src/vanderson/css/main.css">
+</head>
+
+<body>
+
+  <h1>Primeiro Acesso</h1>
+  <p>Defina sua nova senha para continuar.</p>
+
+  <form id="firstAccessForm">
+
+    <input
+      id="newPassword"
+      type="password"
+      class="form-control form-control--password"
+      placeholder="Nova senha"
+      required
+    />
+
+    <input
+      id="confirmPassword"
+      type="password"
+      class="form-control form-control--password"
+      placeholder="Confirmar nova senha"
+      required
+    />
+
+    <button
+      type="submit"
+      class="btn btn--primary btn--md"
+    >
+      Confirmar
+    </button>
+
+  </form>
+  
+    <script src="https://unpkg.com/amazon-cognito-identity-js/dist/amazon-cognito-identity.min.js"></script>
+    <script src="/js/cognito-config.js"></script>
+    <script src="/js/first-access.js"></script>
+</body>
+</html>

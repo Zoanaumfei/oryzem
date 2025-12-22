@@ -47,6 +47,21 @@ function login(email, password, expectedGroup) {
     onFailure: function (err) {
       alert(err.message || "Erro ao autenticar");
     },
+
+    newPasswordRequired: function (userAttributes, requiredAttributes) {
+  delete userAttributes.email_verified;
+
+  sessionStorage.setItem(
+    "cognitoNewPasswordUser",
+    JSON.stringify({
+      username: cognitoUser.getUsername(),
+      attributes: userAttributes,
+    })
+  );
+
+  window.location.href = "/first-access.html";
+}
+
   });
 }
 
@@ -57,6 +72,7 @@ function logout() {
   localStorage.clear();
   window.location.href = "/login.html";
 }
+
 
 /* ====== BINDS ====== */
 
