@@ -48,13 +48,13 @@ document
 
           if (groups.includes("ADMIN")) {
            // window.location.href = "/admin/dashboard.html";
-           alert("REDICIONADO PARA A PAGINA DE ADMIN.");
+           alert(err.message || "REDICIONADO PARA A PAGINA DE ADMIN.");
           } else if (groups.includes("INTERNAL")) {
            // window.location.href = "/internal/dashboard.html";
-           alert("REDICIONADO PARA A PAGINA DE INTERNAL.");
+           alert(err.message || "REDICIONADO PARA A PAGINA DE INTERNAL.");
           } else {
            // window.location.href = "/external/home.html";
-           alert("REDICIONADO PARA A PAGINA DE EXTERNAL.");
+           alert(err.message || "REDICIONADO PARA A PAGINA DE EXTERNAL.");
           }
         },
 
