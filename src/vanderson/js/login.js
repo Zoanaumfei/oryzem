@@ -88,7 +88,7 @@ document.getElementById(ELEMENT_ID.INTERNAL_SIGN_IN_BUTTON)?.addEventListener("c
   login(
     document.getElementById(ELEMENT_ID.INTERNAL_EMAIL).value,
     document.getElementById(ELEMENT_ID.INTERNAL_PASSWORD).value,
-    getGroupInternal()
+    getGroupInternal().value
   );
 });
 
@@ -100,7 +100,7 @@ document.getElementById(ELEMENT_ID.EXTERNAL_SIGN_IN_BUTTON)?.addEventListener("c
   login(
     document.getElementById(ELEMENT_ID.EXTERNAL_EMAIL).value,
     document.getElementById(ELEMENT_ID.EXTERNAL_PASSWORD).value,
-    getGroupExternal()
+    getGroupExternal().value
   );
 });
 
