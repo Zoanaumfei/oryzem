@@ -14,8 +14,6 @@ const GROUPS = {
   EXTERNAL: "External-User"
 };
 
-let IS_LOGGING_OUT = false;
-
 /* =========================
    TOKENS
 ========================= */
@@ -125,8 +123,6 @@ function redirectByGroup(expectedGroup) {
 ========================= */
 
 function bootstrapAuth() {
-  if (IS_LOGGING_OUT) return;
-
   if (!isAuthenticated()) {
     logout();
     return;
@@ -160,22 +156,23 @@ function bootstrapAuth() {
 ========================= */
 
 function logout() {
-  IS_LOGGING_OUT = true;
-
+  // Finaliza sessão no Cognito (se existir)
   const user = userPool.getCurrentUser();
-
   if (user) {
     user.globalSignOut({
       onSuccess: clearLocalSession,
       onFailure: clearLocalSession
     });
-  } else {
-    clearLocalSession();
   }
+
+  // Apaga tokens locais (OBRIGATÓRIO)
+  clearLocalSession();
 }
 
 function clearLocalSession() {
-  localStorage.clear();
+  localStorage.removeItem("idToken");
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
   sessionStorage.clear();
   window.location.replace("/login-page.html");
 }
