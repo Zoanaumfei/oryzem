@@ -1,4 +1,10 @@
 // js/login.js
+const GROUPS = {
+  ADMIN: "Admin-User",
+  INTERNAL: "Internal-User",
+  EXTERNAL: "External-User"
+};
+
 
 function login(email, password, expectedGroup) {
   const authDetails = new AmazonCognitoIdentity.AuthenticationDetails({
@@ -9,13 +15,7 @@ function login(email, password, expectedGroup) {
   const userData = {
     Username: email,
     Pool: userPool,
-  };
-
-  const GROUPS = {
-  ADMIN: "Admin-User",
-  INTERNAL: "Internal-User",
-  EXTERNAL: "External-User"
-};
+  };  
 
   const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
 
