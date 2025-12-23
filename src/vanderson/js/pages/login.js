@@ -55,9 +55,7 @@ async function handleLogin(email, password, expectedGroup) {
   try {
     await login(email, password);
 
-    alert(typeof userGroup);
     alert("Usergroup : " + userGroup);
-    alert(typeof expectedGroup);
     alert("Expectedgroup : " + expectedGroup);
     
       if (userGroup !== expectedGroup || userGroup !== GROUPS.ADMIN) {
