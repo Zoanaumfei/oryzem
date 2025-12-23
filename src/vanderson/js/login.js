@@ -49,6 +49,7 @@ function login(email, password, expectedGroup) {
     },
 
     newPasswordRequired: function (userAttributes, requiredAttributes) {
+    delete userAttributes.email;
     delete userAttributes.email_verified;
     delete userAttributes.phone_number_verified;
     delete userAttributes.sub;
