@@ -58,7 +58,9 @@ async function handleLogin(email, password, expectedGroup) {
     const userGroup = resolveUserGroup();
 
     alert(`Grupo de usuario: ${userGroup}`);
+    alert(typeof userGroup);
     alert(`Grupo esperado: ${expectedGroup}`);
+    alert(typeof expectedGroup);
 
     if (userGroup != expectedGroup && userGroup != GROUPS.ADMIN) {
       alert("Você não tem permissão para este ambiente.");
