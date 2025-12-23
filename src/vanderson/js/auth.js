@@ -103,10 +103,20 @@ function redirectByGroup(expectedGroup) {
 
 function bootstrapAuth() {
   // Não logado → login
-  if (!isAuthenticated()) {
-    window.location.replace("/login-page.html");
-    return;
+  function isAuthenticated() {
+  const token = getIdToken();
+  if (!token) return false;
+
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    const now = Math.floor(Date.now() / 1000);
+
+    return payload.exp && payload.exp > now;
+  } catch {
+    return false;
   }
+} 
+
 
   const groups = getUserGroups();
 
@@ -133,10 +143,27 @@ function bootstrapAuth() {
   logout();
 }
 
-
-
 function logout() {
+  const user = userPool.getCurrentUser();
+
+  if (user) {
+    user.globalSignOut({
+      onSuccess: function () {
+        clearLocalSession();
+      },
+      onFailure: function (err) {
+        console.error("Erro no globalSignOut:", err);
+        clearLocalSession();
+      }
+    });
+  } else {
+    clearLocalSession();
+  }
+}
+
+function clearLocalSession() {
   localStorage.clear();
   sessionStorage.clear();
   window.location.replace("/login-page.html");
 }
+
