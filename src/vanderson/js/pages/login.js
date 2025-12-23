@@ -60,7 +60,7 @@ async function handleLogin(email, password, expectedGroup) {
     alert(`Grupo de usuario: ${userGroup}`);
     alert(`Grupo esperado: ${expectedGroup}`);
 
-    if (userGroup !== expectedGroup && userGroup !== GROUPS.ADMIN) {
+    if (userGroup != expectedGroup && userGroup != GROUPS.ADMIN) {
       alert("Você não tem permissão para este ambiente.");
       logout();
       return;
