@@ -43,7 +43,7 @@ export function isAuthenticated() {
   }
 }
 
-function getUserGroups() {
+export function getUserGroups() {
   const token = getIdToken();
   if (!token) return [];
 

@@ -1,6 +1,6 @@
 import { isAuthenticated, getUserGroups, logout, GROUPS } from "./auth.js";
 
-export function bootstrapAuth() {
+function bootstrapAuth() {
   if (!isAuthenticated()) {
     logout();
     return;
