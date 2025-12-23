@@ -42,13 +42,13 @@ function login(email, password, expectedGroup) {
       }     
 
       // Redirecionamento
-      if (groups.includes(GROUPS.ADMIN)) {
+      if (groups.includes(GROUPS.ADMIN) && groups.includes(expectedGroup)) {
         // window.location.href = "/admin/dashboard.html";
         alert("REDICIONADO PARA A PAGINA DE ADMIN.");
-      } else if (groups.includes(GROUPS.INTERNAL)) {
+      } else if (groups.includes(GROUPS.INTERNAL) && groups.includes(expectedGroup)) {
         // window.location.href = "/internal/dashboard.html";
         alert("REDICIONADO PARA A PAGINA DE INTERNAL.");
-      } else if (groups.includes(GROUPS.EXTERNAL)) {
+      } else if (groups.includes(GROUPS.EXTERNAL) && groups.includes(expectedGroup)) {
         // window.location.href = "/external/home.html";
         alert("REDICIONADO PARA A PAGINA DE EXTERNAL.");
       }
