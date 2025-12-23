@@ -1,6 +1,15 @@
 import { GROUPS } from "./auth.constants.js";
 import { getIdToken } from "./auth.tokens.js";
 
+export function resolveUserGroup() {
+  const groups = getUserGroups();
+
+  if (groups.includes(GROUPS.ADMIN)) return GROUPS.ADMIN;
+  if (groups.includes(GROUPS.INTERNAL)) return GROUPS.INTERNAL;
+  if (groups.includes(GROUPS.EXTERNAL)) return GROUPS.EXTERNAL;
+  return null;
+}
+
 export function getUserGroups() {
   const token = getIdToken();
   if (!token) return [];
@@ -11,15 +20,6 @@ export function getUserGroups() {
   } catch {
     return [];
   }
-}
-
-export function resolveUserGroup() {
-  const groups = getUserGroups();
-
-  if (groups.includes(GROUPS.ADMIN)) return GROUPS.ADMIN;
-  if (groups.includes(GROUPS.INTERNAL)) return GROUPS.INTERNAL;
-  if (groups.includes(GROUPS.EXTERNAL)) return GROUPS.EXTERNAL;
-  return null;
 }
 
 export function hasGroup(group) {

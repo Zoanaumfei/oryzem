@@ -55,13 +55,16 @@ async function handleLogin(email, password, expectedGroup) {
   try {
     await login(email, password);
 
-      if (userGroup != expectedGroup || userGroup != GROUPS.ADMIN) {
+    alert(typeof userGroup);
+    alert("Usergroup : " + userGroup);
+    alert(typeof expectedGroup);
+    alert("Expectedgroup : " + expectedGroup);
+    
+      if (userGroup !== expectedGroup || userGroup !== GROUPS.ADMIN) {
       alert("Você não tem permissão para este ambiente.");
       logout();
       return;
     }
-
-    alert("Grupo passou com sucesso!");
 
     redirectByGroup(userGroup);
   } catch (err) {
