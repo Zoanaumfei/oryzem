@@ -11,6 +11,10 @@ function login(email, password, expectedGroup) {
     Pool: userPool,
   };
 
+  const ADMIN_GROUP = 'Admin-User';
+  const INTERNAL_GROUP = 'Internal-User';
+  const EXTERNAL_GROUP = 'External-User';
+
   const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
 
   cognitoUser.authenticateUser(authDetails, {
@@ -32,13 +36,13 @@ function login(email, password, expectedGroup) {
       localStorage.setItem("accessToken", accessToken);
 
       // Redirecionamento
-      if (groups.includes("ADMIN")) {
+      if (groups.includes(ADMIN_GROUP)) {
         // window.location.href = "/admin/dashboard.html";
         alert("REDICIONADO PARA A PAGINA DE ADMIN.");
-      } else if (groups.includes("INTERNAL")) {
+      } else if (groups.includes(INTERNAL_GROUP)) {
         // window.location.href = "/internal/dashboard.html";
         alert("REDICIONADO PARA A PAGINA DE INTERNAL.");
-      } else {
+      } else if (groups.includes(EXTERNAL_GROUP)) {
         // window.location.href = "/external/home.html";
         alert("REDICIONADO PARA A PAGINA DE EXTERNAL.");
       }
@@ -51,6 +55,7 @@ function login(email, password, expectedGroup) {
     newPasswordRequired: function (userAttributes, requiredAttributes) {
     delete userAttributes.email;
     delete userAttributes.email_verified;
+
     delete userAttributes.phone_number_verified;
     delete userAttributes.sub;
 
