@@ -96,7 +96,7 @@ document.getElementById("internSignInButton")?.addEventListener("click", e => {
   login(
     document.getElementById("internEmail").value,
     document.getElementById("internPassword").value,
-    "INTERNAL"
+    GROUPS.INTERNAL
   );
 });
 
@@ -108,7 +108,7 @@ document.getElementById("externSignInButton")?.addEventListener("click", e => {
   login(
     document.getElementById("externEmail").value,
     document.getElementById("externPassword").value,
-    "EXTERNAL"
+    GROUPS.EXTERNAL
   );
 });
 
