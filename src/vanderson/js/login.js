@@ -12,9 +12,9 @@ function login(email, password, expectedGroup) {
   };
 
   const GROUPS = {
-  ADMIN: "ADMIN",
-  INTERNAL: "INTERNAL",
-  EXTERNAL: "EXTERNAL"
+  ADMIN: "Admin-User",
+  INTERNAL: "Internal-User",
+  EXTERNAL: "External-User"
 };
 
   const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
@@ -28,10 +28,8 @@ function login(email, password, expectedGroup) {
       const groups = payload["cognito:groups"] || [];
 
       // 🔒 Validação do tipo de login
-      if (
-        !expectedGroup ||
-        (!groups.includes(expectedGroup) && !groups.includes(GROUPS.ADMIN))
-       ) {
+      if (!groups.includes(expectedGroup) && !groups.includes(GROUPS.ADMIN))
+     {
         alert("Você não tem permissão para acessar este ambiente.");
         cognitoUser.signOut();
         return;
