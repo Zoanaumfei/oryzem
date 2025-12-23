@@ -13,6 +13,8 @@ const GROUPS = {
   EXTERNAL: "External-User"
 };
 
+let IS_LOGGING_OUT = false;
+
 function getGroupAdmin() {
   return GROUPS.ADMIN;
 }
@@ -101,26 +103,32 @@ function redirectByGroup(expectedGroup) {
   }
 }
 
-function bootstrapAuth() {
-  // Não logado → login
-  function isAuthenticated() {
+function isAuthenticated() {
   const token = getIdToken();
   if (!token) return false;
 
   try {
     const payload = JSON.parse(atob(token.split(".")[1]));
     const now = Math.floor(Date.now() / 1000);
-
     return payload.exp && payload.exp > now;
   } catch {
     return false;
   }
-} 
+}
 
+function bootstrapAuth() {
+  // Evita execução durante logout
+  if (IS_LOGGING_OUT) return;
+
+  // Não autenticado ou token expirado
+  if (!isAuthenticated()) {
+    logout();
+    return;
+  }
 
   const groups = getUserGroups();
 
-  // Prioridade de acesso
+  // Prioridade REAL de acesso
   if (groups.includes(GROUPS.ADMIN)) {
     // window.location.replace("/admin/dashboard.html");
     alert("BOOTSTRAP → ADMIN");
@@ -139,22 +147,19 @@ function bootstrapAuth() {
     return;
   }
 
-  // Caso extremo (token inválido ou sem grupos)
+  // Token válido, mas sem grupo → sessão inválida
   logout();
 }
 
 function logout() {
+  IS_LOGGING_OUT = true;
+
   const user = userPool.getCurrentUser();
 
   if (user) {
     user.globalSignOut({
-      onSuccess: function () {
-        clearLocalSession();
-      },
-      onFailure: function (err) {
-        console.error("Erro no globalSignOut:", err);
-        clearLocalSession();
-      }
+      onSuccess: clearLocalSession,
+      onFailure: clearLocalSession
     });
   } else {
     clearLocalSession();
@@ -166,4 +171,3 @@ function clearLocalSession() {
   sessionStorage.clear();
   window.location.replace("/login-page.html");
 }
-
