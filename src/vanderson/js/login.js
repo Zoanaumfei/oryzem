@@ -1,4 +1,4 @@
-import { logout, redirectByGroup, GROUPS} from "./auth.js";
+import { logout, login, GROUPS} from "./auth.js";
 
 const ELEMENT_ID = {
   INTERNAL_EMAIL: "internEmail",
@@ -11,65 +11,13 @@ const ELEMENT_ID = {
   EXTERNAL_SIGN_OUT_BUTTON: "externSignOutButton"
 }
 
-function login(email, password, expectedGroup) {
-  const authDetails = new AmazonCognitoIdentity.AuthenticationDetails({
-    Username: email,
-    Password: password,
-  });
-
-  const userData = {
-    Username: email,
-    Pool: userPool,
-  };  
-
-  const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-
-  cognitoUser.authenticateUser(authDetails, {
-    onSuccess: function (result) {
-      const idToken = result.getIdToken().getJwtToken();
-      const accessToken = result.getAccessToken().getJwtToken();
-
-      localStorage.setItem("idToken", idToken);
-      localStorage.setItem("accessToken", accessToken);
-
-      redirectByGroup(expectedGroup);
-    },
-
-    onFailure: function (err) {
-      alert(err.message || "Erro ao autenticar");
-    },
-
-    newPasswordRequired: function (userAttributes, requiredAttributes) {
-    delete userAttributes.email;
-    delete userAttributes.email_verified;
-
-    delete userAttributes.phone_number_verified;
-    delete userAttributes.sub;
-
-  sessionStorage.setItem(
-    "cognitoNewPasswordUser",
-    JSON.stringify({
-      username: cognitoUser.getUsername(),
-      attributes: userAttributes,
-      session: cognitoUser.Session,
-    })
-  );
-
-  window.location.href = "../html/first-access.html";
-}
-
-  });
-}
-
-/* ====== BINDS ====== */
-
-// Interno
+// EVENT LISTENERS
 document.getElementById(ELEMENT_ID.INTERNAL_SIGN_IN_BUTTON)?.addEventListener("click", e => {
   e.preventDefault();
   login(
     document.getElementById(ELEMENT_ID.INTERNAL_EMAIL).value,
     document.getElementById(ELEMENT_ID.INTERNAL_PASSWORD).value,
-    GROUPS
+    GROUPS.INTERNAL
   );
 });
 
@@ -92,3 +40,4 @@ document.getElementById(ELEMENT_ID.EXTERNAL_SIGN_OUT_BUTTON)?.addEventListener("
   e.preventDefault();
   logout();
 });
+

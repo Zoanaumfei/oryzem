@@ -1,89 +1,64 @@
-/*
-Responsável por:
-- Ler JWT
-- Saber quem está logado
-- Validar grupos
-- Proteger páginas
-- Logout centralizado
-- Bootstrap após refresh
-*/
-
 export const GROUPS = {
   ADMIN: "Admin-User",
   INTERNAL: "Internal-User",
   EXTERNAL: "External-User"
 };
 
-/* =========================
-   TOKENS
-========================= */
+export function login(email, password, expectedGroup) {
+  const authDetails = new AmazonCognitoIdentity.AuthenticationDetails({
+    Username: email,
+    Password: password,
+  });
 
-function getIdToken() {
-  return localStorage.getItem("idToken");
+  const userData = {
+    Username: email,
+    Pool: userPool,
+  };  
+
+  const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+
+  cognitoUser.authenticateUser(authDetails, {
+    onSuccess: function (result) {
+      const idToken = result.getIdToken().getJwtToken();
+      const accessToken = result.getAccessToken().getJwtToken();
+
+      localStorage.setItem("idToken", idToken);
+      localStorage.setItem("accessToken", accessToken);
+
+      redirectByGroup(expectedGroup);
+    },
+
+    onFailure: function (err) {
+      alert(err.message || "Erro ao autenticar");
+    },
+
+    newPasswordRequired: function (userAttributes, requiredAttributes) {
+    delete userAttributes.email;
+    delete userAttributes.email_verified;
+
+    delete userAttributes.phone_number_verified;
+    delete userAttributes.sub;
+
+  sessionStorage.setItem(
+    "cognitoNewPasswordUser",
+    JSON.stringify({
+      username: cognitoUser.getUsername(),
+      attributes: userAttributes,
+      session: cognitoUser.Session,
+    })
+  );
+
+  window.location.href = "../html/first-access.html";
 }
 
-function getAccessToken() {
-  return localStorage.getItem("accessToken");
-}
-
-/* =========================
-   AUTH
-========================= */
-
-export function isAuthenticated() {
-  const token = getIdToken();
-  if (!token) return false;
-
-  try {
-    const payload = JSON.parse(atob(token.split(".")[1]));
-    const now = Math.floor(Date.now() / 1000);
-    return payload.exp && payload.exp > now;
-  } catch {
-    return false;
-  }
-}
-
-export function getUserGroups() {
-  const token = getIdToken();
-  if (!token) return [];
-
-  try {
-    const payload = JSON.parse(atob(token.split(".")[1]));
-    return payload["cognito:groups"] || [];
-  } catch {
-    return [];
-  }
-}
-
-/* =========================
-   GUARDS
-========================= */
-
-function requireAuth() {
-  if (!isAuthenticated()) {
-    logout();
-  }
-}
-
-function requireGroup(expectedGroup) {
-  requireAuth();
-
-  const groups = getUserGroups();
-
-  if (
-    !groups.includes(expectedGroup) &&
-    !groups.includes(GROUPS.ADMIN)
-  ) {
-    alert("Você não tem permissão para acessar esta página.");
-    logout();
-  }
+  });
 }
 
 /* =========================
    REDIRECT (LOGIN FLOW)
 ========================= */
 
-export function redirectByGroup(expectedGroup) {
+function redirectByGroup(expectedGroup) {
   if (!isAuthenticated()) {
     logout();
     return;
@@ -119,6 +94,47 @@ export function redirectByGroup(expectedGroup) {
 }
 
 /* =========================
+   AUTH
+========================= */
+
+function isAuthenticated() {
+  const token = getIdToken();
+  if (!token) return false;
+
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    const now = Math.floor(Date.now() / 1000);
+    return payload.exp && payload.exp > now;
+  } catch {
+    return false;
+  }
+}
+
+/* =========================
+   TOKENS
+========================= */
+
+function getUserGroups() {
+  const token = getIdToken();
+  if (!token) return [];
+
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return payload["cognito:groups"] || [];
+  } catch {
+    return [];
+  }
+}
+
+function getIdToken() {
+  return localStorage.getItem("idToken");
+}
+
+function getAccessToken() {
+  return localStorage.getItem("accessToken");
+}
+
+/* =========================
    LOGOUT
 ========================= */
 
@@ -143,3 +159,32 @@ function clearLocalSession() {
   sessionStorage.clear();
   window.location.replace("/login-page.html");
 }
+
+
+/* =========================
+   GUARDS
+========================= 
+
+function requireAuth() {
+  if (!isAuthenticated()) {
+    logout();
+  }
+}
+
+function requireGroup(expectedGroup) {
+  requireAuth();
+
+  const groups = getUserGroups();
+
+  if (
+    !groups.includes(expectedGroup) &&
+    !groups.includes(GROUPS.ADMIN)
+  ) {
+    alert("Você não tem permissão para acessar esta página.");
+    logout();
+  }
+}
+*/
+
+
+
