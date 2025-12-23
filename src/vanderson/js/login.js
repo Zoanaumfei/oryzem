@@ -11,9 +11,11 @@ function login(email, password, expectedGroup) {
     Pool: userPool,
   };
 
-  const ADMIN_GROUP = 'Admin-User';
-  const INTERNAL_GROUP = 'Internal-User';
-  const EXTERNAL_GROUP = 'External-User';
+  const GROUPS = {
+  ADMIN: "ADMIN",
+  INTERNAL: "INTERNAL",
+  EXTERNAL: "EXTERNAL"
+};
 
   const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
 
@@ -26,7 +28,10 @@ function login(email, password, expectedGroup) {
       const groups = payload["cognito:groups"] || [];
 
       // 🔒 Validação do tipo de login
-      if (!groups.includes(expectedGroup) && !groups.includes(ADMIN_GROUP)) {
+      if (
+        !expectedGroup ||
+        (!groups.includes(expectedGroup) && !groups.includes(GROUPS.ADMIN))
+       ) {
         alert("Você não tem permissão para acessar este ambiente.");
         cognitoUser.signOut();
         return;
@@ -36,13 +41,13 @@ function login(email, password, expectedGroup) {
       localStorage.setItem("accessToken", accessToken);
 
       // Redirecionamento
-      if (groups.includes(ADMIN_GROUP)) {
+      if (groups.includes(GROUPS.ADMIN)) {
         // window.location.href = "/admin/dashboard.html";
         alert("REDICIONADO PARA A PAGINA DE ADMIN.");
-      } else if (groups.includes(INTERNAL_GROUP)) {
+      } else if (groups.includes(GROUPS.INTERNAL)) {
         // window.location.href = "/internal/dashboard.html";
         alert("REDICIONADO PARA A PAGINA DE INTERNAL.");
-      } else if (groups.includes(EXTERNAL_GROUP)) {
+      } else if (groups.includes(GROUPS.EXTERNAL)) {
         // window.location.href = "/external/home.html";
         alert("REDICIONADO PARA A PAGINA DE EXTERNAL.");
       }
