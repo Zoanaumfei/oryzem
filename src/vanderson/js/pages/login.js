@@ -61,6 +61,8 @@ async function handleLogin(email, password, expectedGroup) {
       return;
     }
 
+    alert("Grupo passou com sucesso!");
+
     redirectByGroup(userGroup);
   } catch (err) {
     alert(err.message || "Erro ao autenticar");
