@@ -27,31 +27,10 @@ function login(email, password, expectedGroup) {
       const idToken = result.getIdToken().getJwtToken();
       const accessToken = result.getAccessToken().getJwtToken();
 
-      // Salva tokens (auth.js irá usar)
       localStorage.setItem("idToken", idToken);
       localStorage.setItem("accessToken", accessToken);
 
-      const groups = getUserGroups();
-
-      // 🔒 Validação do tipo de login
-      if (!groups.includes(expectedGroup) && !groups.includes(GROUPS.ADMIN))
-     {
-        alert("Você não tem permissão para acessar este ambiente.");
-        cognitoUser.signOut();
-        return;
-      }     
-
-      // Redirecionamento
-      if (groups.includes(GROUPS.ADMIN) === groups.includes(expectedGroup)) {
-        // window.location.href = "/admin/dashboard.html";
-        alert("REDICIONADO PARA A PAGINA DE ADMIN.");
-      } else if (groups.includes(GROUPS.INTERNAL) === groups.includes(expectedGroup)) {
-        // window.location.href = "/internal/dashboard.html";
-        alert("REDICIONADO PARA A PAGINA DE INTERNAL.");
-      } else if (groups.includes(GROUPS.EXTERNAL) === groups.includes(expectedGroup)) {
-        // window.location.href = "/external/home.html";
-        alert("REDICIONADO PARA A PAGINA DE EXTERNAL.");
-      }
+      redirectByGroup(expectedGroup);
     },
 
     onFailure: function (err) {
@@ -88,7 +67,7 @@ document.getElementById(ELEMENT_ID.INTERNAL_SIGN_IN_BUTTON)?.addEventListener("c
   login(
     document.getElementById(ELEMENT_ID.INTERNAL_EMAIL).value,
     document.getElementById(ELEMENT_ID.INTERNAL_PASSWORD).value,
-    getGroupInternal().value
+    getGroupInternal()
   );
 });
 
@@ -100,7 +79,7 @@ document.getElementById(ELEMENT_ID.EXTERNAL_SIGN_IN_BUTTON)?.addEventListener("c
   login(
     document.getElementById(ELEMENT_ID.EXTERNAL_EMAIL).value,
     document.getElementById(ELEMENT_ID.EXTERNAL_PASSWORD).value,
-    getGroupExternal().value
+    getGroupExternal()
   );
 });
 

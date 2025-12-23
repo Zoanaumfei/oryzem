@@ -69,6 +69,72 @@ function requireGroup(expectedGroup) {
   }
 }
 
+function redirectByGroup(expectedGroup) {
+  const groups = getUserGroups();
+
+  // Segurança extra (caso alguém chame direto)
+  if (!groups.includes(expectedGroup) && !groups.includes(GROUPS.ADMIN)) {
+    alert("Você não tem permissão para acessar este ambiente.");
+    logout();
+    return;
+  }
+
+  switch (expectedGroup) {
+    case GROUPS.ADMIN:
+      // window.location.replace("/admin/dashboard.html");
+      alert("REDIRECIONADO PARA A PAGINA DE ADMIN.");
+      break;
+
+    case GROUPS.INTERNAL:
+      // window.location.replace("/internal/dashboard.html");
+      alert("REDIRECIONADO PARA A PAGINA DE INTERNAL.");
+      break;
+
+    case GROUPS.EXTERNAL:
+      // window.location.replace("/external/home.html");
+      alert("REDIRECIONADO PARA A PAGINA DE EXTERNAL.");
+      break;
+
+    default:
+      alert("Grupo inválido.");
+      logout();
+  }
+}
+
+function bootstrapAuth() {
+  // Não logado → login
+  if (!isAuthenticated()) {
+    window.location.replace("/login-page.html");
+    return;
+  }
+
+  const groups = getUserGroups();
+
+  // Prioridade de acesso
+  if (groups.includes(GROUPS.ADMIN)) {
+    // window.location.replace("/admin/dashboard.html");
+    alert("BOOTSTRAP → ADMIN");
+    return;
+  }
+
+  if (groups.includes(GROUPS.INTERNAL)) {
+    // window.location.replace("/internal/dashboard.html");
+    alert("BOOTSTRAP → INTERNAL");
+    return;
+  }
+
+  if (groups.includes(GROUPS.EXTERNAL)) {
+    // window.location.replace("/external/home.html");
+    alert("BOOTSTRAP → EXTERNAL");
+    return;
+  }
+
+  // Caso extremo (token inválido ou sem grupos)
+  logout();
+}
+
+
+
 function logout() {
   localStorage.clear();
   sessionStorage.clear();
