@@ -1,10 +1,11 @@
 /*
 Responsável por:
-Ler JWT
-Saber quem está logado
-Validar grupos
-Proteger páginas
-Logout centralizado
+- Ler JWT
+- Saber quem está logado
+- Validar grupos
+- Proteger páginas
+- Logout centralizado
+- Bootstrap após refresh
 */
 
 const GROUPS = {
@@ -15,17 +16,9 @@ const GROUPS = {
 
 let IS_LOGGING_OUT = false;
 
-function getGroupAdmin() {
-  return GROUPS.ADMIN;
-}
-
-function getGroupInternal() {
-  return GROUPS.INTERNAL;
-} 
-
-function getGroupExternal() {
-  return GROUPS.EXTERNAL;
-}
+/* =========================
+   TOKENS
+========================= */
 
 function getIdToken() {
   return localStorage.getItem("idToken");
@@ -35,8 +28,21 @@ function getAccessToken() {
   return localStorage.getItem("accessToken");
 }
 
+/* =========================
+   AUTH
+========================= */
+
 function isAuthenticated() {
-  return !!getIdToken();
+  const token = getIdToken();
+  if (!token) return false;
+
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    const now = Math.floor(Date.now() / 1000);
+    return payload.exp && payload.exp > now;
+  } catch {
+    return false;
+  }
 }
 
 function getUserGroups() {
@@ -46,14 +52,18 @@ function getUserGroups() {
   try {
     const payload = JSON.parse(atob(token.split(".")[1]));
     return payload["cognito:groups"] || [];
-  } catch (e) {
+  } catch {
     return [];
   }
 }
 
+/* =========================
+   GUARDS
+========================= */
+
 function requireAuth() {
   if (!isAuthenticated()) {
-    window.location.replace("/login-page.html");
+    logout();
   }
 }
 
@@ -71,10 +81,18 @@ function requireGroup(expectedGroup) {
   }
 }
 
+/* =========================
+   REDIRECT (LOGIN FLOW)
+========================= */
+
 function redirectByGroup(expectedGroup) {
+  if (!isAuthenticated()) {
+    logout();
+    return;
+  }
+
   const groups = getUserGroups();
 
-  // Segurança extra (caso alguém chame direto)
   if (!groups.includes(expectedGroup) && !groups.includes(GROUPS.ADMIN)) {
     alert("Você não tem permissão para acessar este ambiente.");
     logout();
@@ -84,43 +102,31 @@ function redirectByGroup(expectedGroup) {
   switch (expectedGroup) {
     case GROUPS.ADMIN:
       // window.location.replace("/admin/dashboard.html");
-      alert("REDIRECIONADO PARA A PAGINA DE ADMIN.");
+      alert("REDIRECIONADO PARA ADMIN");
       break;
 
     case GROUPS.INTERNAL:
       // window.location.replace("/internal/dashboard.html");
-      alert("REDIRECIONADO PARA A PAGINA DE INTERNAL.");
+      alert("REDIRECIONADO PARA INTERNAL");
       break;
 
     case GROUPS.EXTERNAL:
       // window.location.replace("/external/home.html");
-      alert("REDIRECIONADO PARA A PAGINA DE EXTERNAL.");
+      alert("REDIRECIONADO PARA EXTERNAL");
       break;
 
     default:
-      alert("Grupo inválido.");
       logout();
   }
 }
 
-function isAuthenticated() {
-  const token = getIdToken();
-  if (!token) return false;
-
-  try {
-    const payload = JSON.parse(atob(token.split(".")[1]));
-    const now = Math.floor(Date.now() / 1000);
-    return payload.exp && payload.exp > now;
-  } catch {
-    return false;
-  }
-}
+/* =========================
+   BOOTSTRAP (REFRESH / URL)
+========================= */
 
 function bootstrapAuth() {
-  // Evita execução durante logout
   if (IS_LOGGING_OUT) return;
 
-  // Não autenticado ou token expirado
   if (!isAuthenticated()) {
     logout();
     return;
@@ -128,7 +134,6 @@ function bootstrapAuth() {
 
   const groups = getUserGroups();
 
-  // Prioridade REAL de acesso
   if (groups.includes(GROUPS.ADMIN)) {
     // window.location.replace("/admin/dashboard.html");
     alert("BOOTSTRAP → ADMIN");
@@ -147,9 +152,12 @@ function bootstrapAuth() {
     return;
   }
 
-  // Token válido, mas sem grupo → sessão inválida
   logout();
 }
+
+/* =========================
+   LOGOUT
+========================= */
 
 function logout() {
   IS_LOGGING_OUT = true;
