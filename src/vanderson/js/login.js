@@ -56,6 +56,7 @@ function login(email, password, expectedGroup) {
     JSON.stringify({
       username: cognitoUser.getUsername(),
       attributes: userAttributes,
+      session: cognitoUser.Session,
     })
   );
 

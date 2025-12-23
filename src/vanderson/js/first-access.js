@@ -28,6 +28,8 @@ document
       Pool: userPool,
     });
 
+    cognitoUser.Session = session;
+
     cognitoUser.completeNewPasswordChallenge(
       newPassword,
       attributes,
