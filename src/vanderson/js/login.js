@@ -1,4 +1,4 @@
-import { logout, redirectByGroup, bootstrapAuth, GROUPS} from "./auth.js";
+import { logout, redirectByGroup, GROUPS} from "./auth.js";
 
 const ELEMENT_ID = {
   INTERNAL_EMAIL: "internEmail",
