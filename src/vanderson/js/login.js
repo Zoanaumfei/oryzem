@@ -26,7 +26,7 @@ function login(email, password, expectedGroup) {
       const groups = payload["cognito:groups"] || [];
 
       // 🔒 Validação do tipo de login
-      if (!groups.includes(expectedGroup) && !groups.includes("ADMIN")) {
+      if (!groups.includes(expectedGroup) && !groups.includes(ADMIN_GROUP)) {
         alert("Você não tem permissão para acessar este ambiente.");
         cognitoUser.signOut();
         return;
