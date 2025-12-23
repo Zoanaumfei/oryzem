@@ -1,7 +1,6 @@
-// js/first-access.js
+console.log("first-access.js carregado");
 
-document
-  .getElementById("firstAccessForm")
+document.getElementById("firstAccessForm")
   .addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -13,19 +12,19 @@ document
       return;
     }
 
-    const storedData = sessionStorage.getItem("cognitoNewPasswordUser");
+    const stored = sessionStorage.getItem("cognitoNewPasswordUser");
 
-    if (!storedData) {
+    if (!stored) {
       alert("Sessão expirada. Faça login novamente.");
-      window.location.replace("/login.html");
+      window.location.replace("/login-page.html");
       return;
     }
 
-    const { username, attributes } = JSON.parse(storedData);
+    const { username, attributes, session } = JSON.parse(stored);
 
     const cognitoUser = new AmazonCognitoIdentity.CognitoUser({
       Username: username,
-      Pool: userPool,
+      Pool: userPool
     });
 
     cognitoUser.Session = session;
@@ -35,32 +34,23 @@ document
       attributes,
       {
         onSuccess: function (result) {
+          sessionStorage.removeItem("cognitoNewPasswordUser");
+
           const idToken = result.getIdToken().getJwtToken();
           const accessToken = result.getAccessToken().getJwtToken();
-
-          const payload = JSON.parse(atob(idToken.split(".")[1]));
-          const groups = payload["cognito:groups"] || [];
 
           localStorage.setItem("idToken", idToken);
           localStorage.setItem("accessToken", accessToken);
 
-          sessionStorage.removeItem("cognitoNewPasswordUser");
+          alert("Senha definida com sucesso!");
 
-          if (groups.includes("ADMIN")) {
-           // window.location.href = "/admin/dashboard.html";
-           alert(err.message || "REDICIONADO PARA A PAGINA DE ADMIN.");
-          } else if (groups.includes("INTERNAL")) {
-           // window.location.href = "/internal/dashboard.html";
-           alert(err.message || "REDICIONADO PARA A PAGINA DE INTERNAL.");
-          } else {
-           // window.location.href = "/external/home.html";
-           alert(err.message || "REDICIONADO PARA A PAGINA DE EXTERNAL.");
-          }
+          window.location.replace("/login-page.html");
         },
 
         onFailure: function (err) {
-          alert(err.message || "Erro ao definir nova senha.");
-        },
+          console.error("Erro Cognito:", err);
+          alert(err.message || "Erro ao definir nova senha");
+        }
       }
     );
   });
