@@ -1,10 +1,13 @@
-// js/login.js
-const GROUPS = {
-  ADMIN: "Admin-User",
-  INTERNAL: "Internal-User",
-  EXTERNAL: "External-User"
-};
-
+const ELEMENT_ID = {
+  INTERNAL_EMAIL: "internEmail",
+  INTERNAL_PASSWORD: "internPassword",
+  INTERNAL_SIGN_IN_BUTTON: "internSignInButton",
+  INTERNAL_SIGN_OUT_BUTTON: "internSignOutButton",
+  EXTERNAL_EMAIL: "externEmail",
+  EXTERNAL_PASSWORD: "externPassword",
+  EXTERNAL_SIGN_IN_BUTTON: "externSignInButton",
+  EXTERNAL_SIGN_OUT_BUTTON: "externSignOutButton"
+}
 
 function login(email, password, expectedGroup) {
   const authDetails = new AmazonCognitoIdentity.AuthenticationDetails({
@@ -24,8 +27,11 @@ function login(email, password, expectedGroup) {
       const idToken = result.getIdToken().getJwtToken();
       const accessToken = result.getAccessToken().getJwtToken();
 
-      const payload = JSON.parse(atob(idToken.split(".")[1]));
-      const groups = payload["cognito:groups"] || [];
+      // Salva tokens (auth.js irá usar)
+      localStorage.setItem("idToken", idToken);
+      localStorage.setItem("accessToken", accessToken);
+
+      const groups = getUserGroups();
 
       // 🔒 Validação do tipo de login
       if (!groups.includes(expectedGroup) && !groups.includes(GROUPS.ADMIN))
@@ -33,10 +39,7 @@ function login(email, password, expectedGroup) {
         alert("Você não tem permissão para acessar este ambiente.");
         cognitoUser.signOut();
         return;
-      }
-
-      localStorage.setItem("idToken", idToken);
-      localStorage.setItem("accessToken", accessToken);
+      }     
 
       // Redirecionamento
       if (groups.includes(GROUPS.ADMIN)) {
@@ -77,37 +80,28 @@ function login(email, password, expectedGroup) {
   });
 }
 
-function logout() {
-  const user = userPool.getCurrentUser();
-  if (user) user.signOut();
-
-  localStorage.clear();
-  window.location.href = "/login.html";
-}
-
-
 /* ====== BINDS ====== */
 
 // Interno
-document.getElementById("internSignInButton")?.addEventListener("click", e => {
+document.getElementById(ELEMENT_ID.INTERNAL_SIGN_IN_BUTTON)?.addEventListener("click", e => {
   e.preventDefault();
   login(
-    document.getElementById("internEmail").value,
-    document.getElementById("internPassword").value,
+    document.getElementById(ELEMENT_ID.INTERNAL_EMAIL).value,
+    document.getElementById(ELEMENT_ID.INTERNAL_PASSWORD).value,
     GROUPS.INTERNAL
   );
 });
 
-document.getElementById("internSignOutButton")?.addEventListener("click", logout);
+document.getElementById(ELEMENT_ID.EXTERNAL_SIGN_OUT_BUTTON)?.addEventListener("click", logout);
 
 // Externo
-document.getElementById("externSignInButton")?.addEventListener("click", e => {
+document.getElementById(ELEMENT_ID.EXTERNAL_SIGN_IN_BUTTON)?.addEventListener("click", e => {
   e.preventDefault();
   login(
-    document.getElementById("externEmail").value,
-    document.getElementById("externPassword").value,
+    document.getElementById(ELEMENT_ID.EXTERNAL_EMAIL).value,
+    document.getElementById(ELEMENT_ID.EXTERNAL_PASSWORD).value,
     GROUPS.EXTERNAL
   );
 });
 
-document.getElementById("externSignOutButton")?.addEventListener("click", logout);
+document.getElementById(ELEMENT_ID.EXTERNAL_SIGN_OUT_BUTTON)?.addEventListener("click", logout);

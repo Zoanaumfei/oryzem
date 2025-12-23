@@ -1,27 +1,64 @@
-// js/auth.js
+/*
+Responsável por:
+Ler JWT
+Saber quem está logado
+Validar grupos
+Proteger páginas
+Logout centralizado
+*/
 
-function getPayload() {
-  const token = localStorage.getItem("idToken");
-  if (!token) return null;
-  return JSON.parse(atob(token.split(".")[1]));
+const GROUPS = {
+  ADMIN: "Admin-User",
+  INTERNAL: "Internal-User",
+  EXTERNAL: "External-User"
+};
+
+function getIdToken() {
+  return localStorage.getItem("idToken");
 }
 
-function requireAuth(requiredGroup) {
-  const payload = getPayload();
+function getAccessToken() {
+  return localStorage.getItem("accessToken");
+}
 
-  if (!payload) {
-    window.location.href = "/login.html";
-    return;
+function isAuthenticated() {
+  return !!getIdToken();
+}
+
+function getUserGroups() {
+  const token = getIdToken();
+  if (!token) return [];
+
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return payload["cognito:groups"] || [];
+  } catch (e) {
+    return [];
   }
+}
 
-  const groups = payload["cognito:groups"] || [];
+function requireAuth() {
+  if (!isAuthenticated()) {
+    window.location.replace("/login-page.html");
+  }
+}
+
+function requireGroup(expectedGroup) {
+  requireAuth();
+
+  const groups = getUserGroups();
 
   if (
-    requiredGroup &&
-    !groups.includes(requiredGroup) &&
-    !groups.includes("ADMIN")
+    !groups.includes(expectedGroup) &&
+    !groups.includes(GROUPS.ADMIN)
   ) {
-    alert("Acesso negado.");
-    window.location.href = "/login.html";
+    alert("Você não tem permissão para acessar esta página.");
+    logout();
   }
+}
+
+function logout() {
+  localStorage.clear();
+  sessionStorage.clear();
+  window.location.replace("/login-page.html");
 }
