@@ -1,3 +1,5 @@
+import { logout, redirectByGroup, GROUPS} from "./auth.js";
+
 const ELEMENT_ID = {
   INTERNAL_EMAIL: "internEmail",
   INTERNAL_PASSWORD: "internPassword",
@@ -67,11 +69,14 @@ document.getElementById(ELEMENT_ID.INTERNAL_SIGN_IN_BUTTON)?.addEventListener("c
   login(
     document.getElementById(ELEMENT_ID.INTERNAL_EMAIL).value,
     document.getElementById(ELEMENT_ID.INTERNAL_PASSWORD).value,
-    getGroupInternal()
+    GROUPS
   );
 });
 
-document.getElementById(ELEMENT_ID.EXTERNAL_SIGN_OUT_BUTTON)?.addEventListener("click", logout());
+document.getElementById(ELEMENT_ID.INTERNAL_SIGN_OUT_BUTTON)?.addEventListener("click", e => {
+  e.preventDefault();
+  logout();
+});
 
 // Externo
 document.getElementById(ELEMENT_ID.EXTERNAL_SIGN_IN_BUTTON)?.addEventListener("click", e => {
@@ -79,8 +84,11 @@ document.getElementById(ELEMENT_ID.EXTERNAL_SIGN_IN_BUTTON)?.addEventListener("c
   login(
     document.getElementById(ELEMENT_ID.EXTERNAL_EMAIL).value,
     document.getElementById(ELEMENT_ID.EXTERNAL_PASSWORD).value,
-    getGroupExternal()
+    GROUPS.EXTERNAL
   );
 });
 
-document.getElementById(ELEMENT_ID.EXTERNAL_SIGN_OUT_BUTTON)?.addEventListener("click", logout());
+document.getElementById(ELEMENT_ID.EXTERNAL_SIGN_OUT_BUTTON)?.addEventListener("click", e => {
+  e.preventDefault();
+  logout();
+});

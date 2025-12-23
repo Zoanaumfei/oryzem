@@ -8,7 +8,7 @@ Responsável por:
 - Bootstrap após refresh
 */
 
-const GROUPS = {
+export const GROUPS = {
   ADMIN: "Admin-User",
   INTERNAL: "Internal-User",
   EXTERNAL: "External-User"
@@ -83,7 +83,7 @@ function requireGroup(expectedGroup) {
    REDIRECT (LOGIN FLOW)
 ========================= */
 
-function redirectByGroup(expectedGroup) {
+export function redirectByGroup(expectedGroup) {
   if (!isAuthenticated()) {
     logout();
     return;
@@ -155,7 +155,7 @@ function bootstrapAuth() {
    LOGOUT
 ========================= */
 
-function logout() {
+export function logout() {
   // Finaliza sessão no Cognito (se existir)
   const user = userPool.getCurrentUser();
   if (user) {
