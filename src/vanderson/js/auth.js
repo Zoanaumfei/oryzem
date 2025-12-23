@@ -13,6 +13,18 @@ const GROUPS = {
   EXTERNAL: "External-User"
 };
 
+function getGroupAdmin() {
+  return GROUPS.ADMIN;
+}
+
+function getGroupInternal() {
+  return GROUPS.INTERNAL;
+} 
+
+function getGroupExternal() {
+  return GROUPS.EXTERNAL;
+}
+
 function getIdToken() {
   return localStorage.getItem("idToken");
 }
