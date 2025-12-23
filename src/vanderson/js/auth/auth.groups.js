@@ -1,15 +1,9 @@
 import { GROUPS } from "./auth.constants.js";
 import { getIdToken } from "./auth.tokens.js";
 
-export function resolveUserGroup() {
-  const groups = getUserGroups();
-
-  if (groups.includes(GROUPS.ADMIN)) return GROUPS.ADMIN;
-  if (groups.includes(GROUPS.INTERNAL)) return GROUPS.INTERNAL;
-  if (groups.includes(GROUPS.EXTERNAL)) return GROUPS.EXTERNAL;
-  return null;
-}
-
+/**
+ * Retorna todos os grupos do usuário
+ */
 export function getUserGroups() {
   const token = getIdToken();
   if (!token) return [];
@@ -22,6 +16,23 @@ export function getUserGroups() {
   }
 }
 
-export function hasGroup(group) {
-  return getUserGroups().includes(group);
+/**
+ * Retorna o grupo dominante (prioridade)
+ */
+export function resolveUserGroup() {
+  const groups = getUserGroups();
+
+  if (groups.includes(GROUPS.ADMIN)) return GROUPS.ADMIN;
+  if (groups.includes(GROUPS.INTERNAL)) return GROUPS.INTERNAL;
+  if (groups.includes(GROUPS.EXTERNAL)) return GROUPS.EXTERNAL;
+
+  return null;
+}
+
+/**
+ * Verifica se o usuário pertence a pelo menos um grupo permitido
+ */
+export function hasGroup(...allowedGroups) {
+  const groups = getUserGroups();
+  return allowedGroups.some(group => groups.includes(group));
 }
