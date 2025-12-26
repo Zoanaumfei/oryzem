@@ -1,5 +1,6 @@
 import { saveTokens, clearTokens } from "./auth.tokens.js";
 import { ROUTES } from "./auth.constants.js";
+import { getCurrentUser } from 'aws-amplify/auth';
 
 export function login(email, password) {
   return new Promise((resolve, reject) => {
