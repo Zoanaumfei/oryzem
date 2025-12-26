@@ -8,5 +8,5 @@ export const ROUTES = {
   ADMIN: "/admin/dashboard.html",
   INTERNAL: "/internal/dashboard.html",
   EXTERNAL: "/src/vanderson/html/pages/external/home.html",
-  LOGIN: "/vanderson/html/pages/login-page.html"
+  LOGIN: "/src/vanderson/html/pages/login-page.html"
 };
