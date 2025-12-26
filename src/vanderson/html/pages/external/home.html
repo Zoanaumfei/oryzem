@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>External Home</title>
+    <style>
+        /* Reset básico para garantir que a página fique realmente em branco */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Estilização do corpo da página */
+        body {
+            background-color: #ffffff; /* Fundo branco */
+            min-height: 100vh; /* Garante que ocupe toda a altura da tela */
+            display: flex; /* Usando flexbox para centralização */
+            justify-content: center; /* Centraliza horizontalmente */
+            align-items: center; /* Centraliza verticalmente */
+            font-family: Arial, sans-serif; /* Fonte simples e legível */
+        }
+        
+        /* Estilização do texto principal */
+        .external-home-text {
+            font-size: 3rem; /* Tamanho grande do texto */
+            color: #333333; /* Cor cinza escuro para contraste suave */
+            font-weight: normal; /* Peso normal da fonte */
+            text-transform: uppercase; /* Transforma o texto em maiúsculas */
+            letter-spacing: 2px; /* Espaçamento entre letras */
+        }
+        
+        /* Responsividade para telas menores */
+        @media (max-width: 768px) {
+            .external-home-text {
+                font-size: 2rem; /* Reduz o tamanho da fonte em telas menores */
+                letter-spacing: 1px; /* Reduz o espaçamento entre letras */
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .external-home-text {
+                font-size: 1.5rem; /* Reduz ainda mais para telas muito pequenas */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="external-home-text">external home</div>
+    
+    <!-- Incluindo um pequeno script apenas para demonstrar que podemos adicionar funcionalidades -->
+    <script>
+        // Script simples para demonstrar que a página está carregada
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Página "External Home" carregada com sucesso!');
+        });
+    </script>
+</body>
+</html>
