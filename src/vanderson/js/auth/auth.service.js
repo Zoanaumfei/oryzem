@@ -1,6 +1,11 @@
 import { saveTokens, clearTokens } from "./auth.tokens.js";
 import { ROUTES } from "./auth.constants.js";
 
+const cognitoUser = new AmazonCognitoIdentity.CognitoUser({
+  Username: email,
+  Pool: userPool,
+});
+
 export function login(email, password) {
   return new Promise((resolve, reject) => {
     const authDetails = new AmazonCognitoIdentity.AuthenticationDetails({
@@ -8,10 +13,7 @@ export function login(email, password) {
       Password: password,
     });
 
-    const cognitoUser = new AmazonCognitoIdentity.CognitoUser({
-      Username: email,
-      Pool: userPool,
-    });
+
 
     cognitoUser.authenticateUser(authDetails, {
       onSuccess: result => {
