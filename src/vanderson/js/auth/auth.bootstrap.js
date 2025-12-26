@@ -2,6 +2,7 @@ import { isAuthenticated } from "./auth.tokens.js";
 import { resolveUserGroup } from "./auth.groups.js";
 import { GROUPS } from "./auth.constants.js";
 import { logout } from "./auth.service.js";
+import { redirectByGroup } from "./auth.redirect.js";
 
 export function bootstrapAuth() {
   // Não autenticado ou token inválido
@@ -14,22 +15,18 @@ export function bootstrapAuth() {
 
   switch (group) {
     case GROUPS.ADMIN:
-      // window.location.replace("/admin/dashboard.html");
-      console.log("BOOTSTRAP → ADMIN");
+      redirectByGroup(GROUPS.ADMIN);
       break;
 
     case GROUPS.INTERNAL:
-      // window.location.replace("/internal/dashboard.html");
-      console.log("BOOTSTRAP → INTERNAL");
+      redirectByGroup(GROUPS.INTERNAL);
       break;
 
     case GROUPS.EXTERNAL:
-      // window.location.replace("/external/home.html");
-      console.log("BOOTSTRAP → EXTERNAL");
+      redirectByGroup(GROUPS.EXTERNAL);
       break;
 
     default:
-      // Token válido mas sem grupo
       logout();
   }
 }
