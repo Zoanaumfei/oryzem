@@ -12,7 +12,11 @@
         import { GROUPS } from "/src/vanderson/js/auth/auth.constants.js";
         requireGroup(GROUPS.EXTERNAL);
     </script>
-    <script type="module" src="/src/vanderson/js/pages/login.js"></script>
+    <script type="module">
+    import { logout } from "/src/vanderson/js/pages/login.js";
+    // Vincula a função ao botão
+    document.getElementById('internSignOutButton').addEventListener('click', logout);
+    </script>
 
 </head>
 
