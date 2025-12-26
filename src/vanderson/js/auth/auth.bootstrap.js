@@ -9,8 +9,6 @@ export function bootstrapAuth() {
     return;
   }
 
-  alert("Bootstrap - Já esta autenticado");
-
   const group = resolveUserGroup();
 
   switch (group) {
