@@ -14,7 +14,7 @@ export function clearTokens() {
   STORAGE.clear();
 }
 
-export function isTokenValid() {
+export function isAuthenticated() {
   const token = getIdToken();
   if (!token) return false;
 
