@@ -7,6 +7,6 @@ export const GROUPS = {
 export const ROUTES = {
   ADMIN: "/admin/dashboard.html",
   INTERNAL: "/internal/dashboard.html",
-  EXTERNAL: "..pages/external/home.html",
+  EXTERNAL: "/pages/external/home.html",
   LOGIN: "/login-page.html"
 };
