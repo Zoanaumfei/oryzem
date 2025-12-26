@@ -6,7 +6,7 @@ import { redirectByGroup } from "./auth.redirect.js";
 export function bootstrapAuth() {
   // Não autenticado ou token inválido
   if (!isAuthenticated()) {
-    return;
+    return false;
   }
 
   const group = resolveUserGroup();
