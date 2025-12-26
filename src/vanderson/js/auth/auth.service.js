@@ -39,11 +39,13 @@ export function logout() {
   const user = userPool.getCurrentUser();
   if (user) {
     user.globalSignOut({
-      onSuccess: clearSession,
-      onFailure: clearSession
+      onSuccess: clearSession(),
+      onFailure: clearSession(),
     });
+    alert:"Logout process if."
   } else {
     clearSession();
+    alert: "Logout process else."
   }
 }
 
