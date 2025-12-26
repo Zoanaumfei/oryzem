@@ -1,13 +1,11 @@
 import { isAuthenticated } from "./auth.tokens.js";
 import { resolveUserGroup } from "./auth.groups.js";
 import { GROUPS } from "./auth.constants.js";
-import { logout } from "./auth.service.js";
 import { redirectByGroup } from "./auth.redirect.js";
 
 export function bootstrapAuth() {
   // Não autenticado ou token inválido
   if (!isAuthenticated()) {
-    logout();
     return;
   }
 
@@ -27,8 +25,5 @@ export function bootstrapAuth() {
     case GROUPS.EXTERNAL:
       redirectByGroup(GROUPS.EXTERNAL);
       break;
-
-    default:
-      logout();
   }
 }
