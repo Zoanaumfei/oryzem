@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>External Home</title>
     <link rel="stylesheet" href="/src/vanderson/css/main.css">
-</head>
-<body>
-    <div class="external-home-text">external home</div>
-    
-    <!-- Incluindo um pequeno script apenas para demonstrar que podemos adicionar funcionalidades -->
     <script type="module">
     import { GROUPS } from "/js/auth/auth.constants.js";
     import { requireGroup } from "/js/auth/auth.guard.js";
       
     requireGroup(GROUPS.EXTERNAL);
     </script>   
+</head>
+<body>
+    <div class="external-home-text">external home</div>
+    <!-- Incluindo um pequeno script apenas para demonstrar que podemos adicionar funcionalidades -->
 </body>
 </html>
