@@ -68,3 +68,11 @@ async function handleLogin(email, password, expectedGroup) {
     alert(err.message || "Erro ao autenticar");
   }
 }
+
+login(); {
+  // Placeholder for the actual login function
+}
+
+logout(); {
+  // Placeholder for the actual logout function
+}
