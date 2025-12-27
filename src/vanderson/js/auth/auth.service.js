@@ -1,4 +1,3 @@
-import { userPool } from "./auth.cognito.js";
 import { saveTokens, clearTokens } from "./auth.tokens.js";
 import { ROUTES } from "./auth.constants.js";
 
