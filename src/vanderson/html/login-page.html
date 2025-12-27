@@ -7,17 +7,16 @@
   <title>LoginPage - VW Supply</title>
   <link rel="stylesheet" href="/src/vanderson/css/main.css">
   
-  <!-- 1️SDK GLOBAL (sem module) -->
+  <!-- SDK do Cognito (GLOBAL) -->
 <script
   src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@5.2.10/dist/amazon-cognito-identity.min.js"
   crossorigin="anonymous">
 </script>
 
-<!-- 2️Cognito config -->
-<script type="module" src="/src/vanderson/js/auth/auth.cognito.js"></script>
+<!-- Seus scripts (ES Modules) -->
+<script type="module" src="/js/auth.cognito.js"></script>
+<script type="module" src="/js/auth.service.js"></script>
 
-<!-- 3️Página -->
-<script type="module" src="/src/vanderson/js/pages/login.js"></script>
 
 </head>
 
