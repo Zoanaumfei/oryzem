@@ -1,20 +1,33 @@
+// auth.guard.js
 import { isAuthenticated } from "./auth.tokens.js";
-import { hasGroup } from "./auth.groups.js";
-import { logout } from "./auth.service.js";
+import { getUserGroups } from "./auth.groups.js";
+import { ROUTES } from "./auth.constants.js";
 
 export function requireGroup(...allowedGroups) {
   if (!isAuthenticated()) {
-    alert("Access denied.");
-    logout();
+    window.location.replace(ROUTES.LOGIN);
     return false;
   }
 
-  if (!hasGroup(...allowedGroups)) {
-    alert("Access denied.");
-    logout();
+  if (allowedGroups.length === 0) return true;
+
+  const userGroups = getUserGroups();
+  const hasPermission = allowedGroups.some(group =>
+    userGroups.includes(group)
+  );
+
+  if (!hasPermission) {
+    window.location.replace(ROUTES.LOGIN);
     return false;
   }
 
   return true;
-  alert("Access granted.");
+}
+
+export function requireAuth() {
+  if (!isAuthenticated()) {
+    window.location.replace(ROUTES.LOGIN);
+    return false;
+  }
+  return true;
 }
