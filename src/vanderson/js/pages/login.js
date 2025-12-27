@@ -69,10 +69,10 @@ async function handleLogin(email, password, expectedGroup) {
   }
 }
 
-login(); {
+function login() {
   // Placeholder for the actual login function
 }
 
-logout(); {
+function logout() {
   // Placeholder for the actual logout function
 }
