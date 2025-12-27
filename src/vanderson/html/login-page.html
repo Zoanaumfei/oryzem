@@ -6,8 +6,14 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>LoginPage - VW Supply</title>
   <link rel="stylesheet" href="/src/vanderson/css/main.css">
-  <script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@6.3.0/dist/amazon-cognito-identity.min.js"></script>
+  
+  <!-- 1 SDK GLOBAL (sem module) -->
+  <script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@5.2.10/dist/amazon-cognito-identity.min.js"
+    crossorigin="anonymous">
+    </script>
+  <!-- 2 Cognito config -->
   <script type="module" src="/src/vanderson/js/auth/auth.cognito.js"></script>
+  <!-- 3️ Página -->
   <script type="module" src="/src/vanderson/js/pages/login.js"></script>
 </head>
 
