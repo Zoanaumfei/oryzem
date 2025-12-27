@@ -2,14 +2,17 @@ import { userPool } from "./auth.cognito.js";
 import { saveTokens, clearTokens } from "./auth.tokens.js";
 import { ROUTES } from "./auth.constants.js";
 
+const Cognito = window.AmazonCognitoIdentity;
+
 export function login(email, password) {
   return new Promise((resolve, reject) => {
-    const authDetails = new AmazonCognitoIdentity.AuthenticationDetails({
+
+    const authDetails = new Cognito.AuthenticationDetails({
       Username: email,
       Password: password,
     });
 
-    const cognitoUser = new AmazonCognitoIdentity.CognitoUser({
+    const cognitoUser = new Cognito.CognitoUser({
       Username: email,
       Pool: userPool,
     });
@@ -23,7 +26,7 @@ export function login(email, password) {
         });
         resolve(result);
       },
-      onFailure: err => reject(err),
+      onFailure: reject,
       newPasswordRequired: (attrs) => {
         sessionStorage.setItem("FIRST_ACCESS", JSON.stringify({
           username: cognitoUser.getUsername(),
