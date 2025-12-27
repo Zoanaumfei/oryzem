@@ -1,5 +1,4 @@
-// src/auth/auth.cognito.js
-import { CognitoUserPool } from "./amazon-cognito-identity.js";
+const { CognitoUserPool } = window.AmazonCognitoIdentity;
 
 const poolData = {
   UserPoolId: "us-east-1_tuCP4JyT5",
@@ -7,3 +6,4 @@ const poolData = {
 };
 
 export const userPool = new CognitoUserPool(poolData);
+

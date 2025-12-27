@@ -1,8 +1,8 @@
 // src/auth/auth.service.js
-import {
-  AuthenticationDetails,
-  CognitoUser
-} from "./amazon-cognito-identity.js";
+const {
+  CognitoUser,
+  AuthenticationDetails
+} = window.AmazonCognitoIdentity;
 
 import { userPool } from "./auth.cognito.js";
 import { saveTokens, clearTokens } from "./auth.tokens.js";
