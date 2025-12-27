@@ -2,11 +2,11 @@
 import {
   AuthenticationDetails,
   CognitoUser
-} from "./amazon-cognito-identity-js";
+} from "./amazon-cognito-identity.min.js";
 
-import { userPool } from "./auth.cognito";
-import { saveTokens, clearTokens } from "./auth.tokens";
-import { ROUTES } from "./auth.constants";
+import { userPool } from "./auth.cognito.js";
+import { saveTokens, clearTokens } from "./auth.tokens.js";
+import { ROUTES } from "./auth.constants.js";
 
 export function login(email, password) {
   return new Promise((resolve, reject) => {
