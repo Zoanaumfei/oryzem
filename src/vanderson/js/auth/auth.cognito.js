@@ -1,5 +1,5 @@
 // src/auth/auth.cognito.js
-import { CognitoUserPool } from "C:\Users\vande\Oryzem\oryzem\oryzem-frontend\node_modules\amazon-cognito-identity-js\dist\amazon-cognito-identity.min.js"
+import { CognitoUserPool } from "amazon-cognito-identity-js";
 
 const poolData = {
   UserPoolId: "us-east-1_tuCP4JyT5",
@@ -7,4 +7,3 @@ const poolData = {
 };
 
 export const userPool = new CognitoUserPool(poolData);
-

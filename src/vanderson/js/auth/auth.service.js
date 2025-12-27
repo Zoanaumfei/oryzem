@@ -2,7 +2,7 @@
 import {
   AuthenticationDetails,
   CognitoUser
-} from "C:\Users\vande\Oryzem\oryzem\oryzem-frontend\node_modules\amazon-cognito-identity-js\dist\amazon-cognito-identity.min.js";
+} from "amazon-cognito-identity-js";
 
 import { userPool } from "./auth.cognito";
 import { saveTokens, clearTokens } from "./auth.tokens";
