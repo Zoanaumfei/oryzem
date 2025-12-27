@@ -3,4 +3,4 @@ const COGNITO_CONFIG = {
   ClientId: "38o16atrmejvgth708cifvbti",
 };
 
-const userPool = new AmazonCognitoIdentity.CognitoUserPool(COGNITO_CONFIG);
+export const userPool = new AmazonCognitoIdentity.CognitoUserPool(COGNITO_CONFIG);
