@@ -1,3 +1,4 @@
+import { userPool } from "./auth.cognito.js";
 import { saveTokens, clearTokens } from "./auth.tokens.js";
 import { ROUTES } from "./auth.constants.js";
 
@@ -37,47 +38,29 @@ export function login(email, password) {
 
 export function logout() {
   const user = userPool.getCurrentUser();
-  
-  if (user) {
-    user.getSession((err, session) => {
-      if (err || !session.isValid()) {
-        // Sessão inválida, apenas limpe localmente
-        clearSession();
-        alert("Sessão expirada. Você foi desconectado.");
-        return;
-      }
-      
-      // Sessão válida, faça logout global
-      user.globalSignOut({
-        onSuccess: () => {
-          clearSession();
-          alert("Logout realizado com sucesso em todos os dispositivos.");
-        },
-        onFailure: (err) => {
-          console.error("Erro no logout global:", err);
-          // Mesmo em caso de erro, limpe os tokens localmente
-          clearSession();
-          alert("Logout realizado (apenas neste dispositivo).");
-        }
-      });
-    });
-  } else {
-    // Não há usuário ativo, apenas limpe
+
+  if (!user) {
     clearSession();
-    alert("Você já está desconectado.");
+    return;
   }
+
+  user.getSession((err, session) => {
+    if (err || !session?.isValid()) {
+      clearSession();
+      return;
+    }
+
+    user.globalSignOut({
+      onSuccess: clearSession,
+      onFailure: clearSession
+    });
+  });
 }
 
 function clearSession() {
-  // Limpa o usuário atual do UserPool
   const user = userPool.getCurrentUser();
-  if (user) {
-    user.signOut();
-  }
-  
-  // Limpa os tokens do armazenamento
+  if (user) user.signOut();
+
   clearTokens();
-  
-  // Redireciona para login
   window.location.replace(ROUTES.LOGIN);
 }
