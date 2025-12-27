@@ -5,3 +5,4 @@ const poolData = {
 
 export const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
+const cognitoUser = new AmazonCognitoIdentity.CognitoUser
