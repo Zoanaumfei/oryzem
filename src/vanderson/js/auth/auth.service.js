@@ -2,7 +2,7 @@
 import {
   AuthenticationDetails,
   CognitoUser
-} from "amazon-cognito-identity-js";
+} from "./amazon-cognito-identity-js";
 
 import { userPool } from "./auth.cognito";
 import { saveTokens, clearTokens } from "./auth.tokens";
