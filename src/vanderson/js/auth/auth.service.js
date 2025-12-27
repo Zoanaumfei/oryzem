@@ -1,18 +1,14 @@
-import { userPool } from "./auth.cognito.js";
 import { saveTokens, clearTokens } from "./auth.tokens.js";
 import { ROUTES } from "./auth.constants.js";
 
-const Cognito = window.AmazonCognitoIdentity;
-
 export function login(email, password) {
   return new Promise((resolve, reject) => {
-
-    const authDetails = new Cognito.AuthenticationDetails({
+    const authDetails = new AmazonCognitoIdentity.AuthenticationDetails({
       Username: email,
       Password: password,
     });
 
-    const cognitoUser = new Cognito.CognitoUser({
+    const cognitoUser = new AmazonCognitoIdentity.CognitoUser({
       Username: email,
       Pool: userPool,
     });
@@ -26,7 +22,7 @@ export function login(email, password) {
         });
         resolve(result);
       },
-      onFailure: reject,
+      onFailure: err => reject(err),
       newPasswordRequired: (attrs) => {
         sessionStorage.setItem("FIRST_ACCESS", JSON.stringify({
           username: cognitoUser.getUsername(),
@@ -41,29 +37,17 @@ export function login(email, password) {
 
 export function logout() {
   const user = userPool.getCurrentUser();
-
-  if (!user) {
-    clearSession();
-    return;
-  }
-
-  user.getSession((err, session) => {
-    if (err || !session?.isValid()) {
-      clearSession();
-      return;
-    }
-
+  if (user) {
     user.globalSignOut({
       onSuccess: clearSession,
       onFailure: clearSession
     });
-  });
+  } else {
+    clearSession();
+  }
 }
 
 function clearSession() {
-  const user = userPool.getCurrentUser();
-  if (user) user.signOut();
-
   clearTokens();
   window.location.replace(ROUTES.LOGIN);
 }

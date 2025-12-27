@@ -1,8 +1,6 @@
-const Cognito = window.AmazonCognitoIdentity;
-
-const poolData = {
+const COGNITO_CONFIG = {
   UserPoolId: "us-east-1_tuCP4JyT5",
-  ClientId: "38o16atrmejvgth708cifvbti"
+  ClientId: "38o16atrmejvgth708cifvbti",
 };
 
-export const userPool = new Cognito.CognitoUserPool(poolData);
+const userPool = new AmazonCognitoIdentity.CognitoUserPool(COGNITO_CONFIG);
