@@ -1,4 +1,4 @@
-// import { login, logout } from "../auth/auth.service.js";
+import { login, logout } from "../auth/auth.service.js";
 import { resolveUserGroup } from "../auth/auth.groups.js";
 import { redirectByGroup } from "../auth/auth.redirect.js";
 import { GROUPS } from "../auth/auth.constants.js";
@@ -67,12 +67,4 @@ async function handleLogin(email, password, expectedGroup) {
   } catch (err) {
     alert(err.message || "Erro ao autenticar");
   }
-}
-
-function login() {
-  // Placeholder for the actual login function
-}
-
-function logout() {
-  // Placeholder for the actual logout function
 }
