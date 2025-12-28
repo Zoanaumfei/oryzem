@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>External Home</title>
     <link rel="stylesheet" href="/src/vanderson/css/main.css">
+    <link rel="stylesheet" href="/src/vanderson/css/pages/external-home.css">
     <script src="/src/vanderson/js/auth/amazon-cognito-identity.min.js" ></script>
     <script type="module" src="/src/vanderson/js/auth/auth.cognito.js"></script>
     <script type="module">
@@ -26,30 +27,101 @@
 </head>
 
 <body>
-    <div class="external-home-text">external home</div>
-    <!-- Incluindo um pequeno script apenas para demonstrar que podemos adicionar funcionalidades -->
+    <header class="external-header">
+        <h1 class="page-title">Status de Pedidos</h1>
+        <div class="header-actions">
+            <button type="button" id="internSignOutButton" class="btn btn--outline-primary btn--md">
+                <svg class="btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M9 21H5C3.9 21 3 20.1 3 19V5C3 3.9 3.9 3 5 3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M16 17L21 12L16 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                Sair
+            </button>
+        </div>
+    </header>
 
+    <main class="main-container external-home-page">
+        <!-- Summary cards -->
+        <section class="cards-section">
+            <div class="cards">
+                <div class="card" id="card-total">
+                    <div class="card-label">Total de Pedidos</div>
+                    <div class="card-value" id="total-count">0</div>
+                </div>
 
-    <main class="main-container">
-        <!-- Container principal para os formulários -->
-            <section class="form-section" id="internoUsersSign">
-                <form id="internLoginForm">
-                    <!-- Ações -->
-                    <div class="form-actions">
-                        <button type="button" id="internSignOutButton" class="btn btn--outline-primary btn--md">
-                            <svg class="btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="none">
-                                <path d="M9 21H5C3.9 21 3 20.1 3 19V5C3 3.9 3.9 3 5 3H9" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M16 17L21 12L16 7" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                            Sign Out
-                        </button>
-                    </div>
-                </form>
-            </section>
+                <div class="card" id="card-pending">
+                    <div class="card-label">Pendentes</div>
+                    <div class="card-value" id="pending-count">0</div>
+                </div>
+
+                <div class="card" id="card-overdue">
+                    <div class="card-label">Atrasados</div>
+                    <div class="card-value" id="overdue-count">0</div>
+                </div>
+
+                <div class="card" id="card-completed">
+                    <div class="card-label">Concluídos</div>
+                    <div class="card-value" id="completed-count">0</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pendency / progress -->
+        <section class="pendency-section">
+            <div class="pendency-info">
+                <h2>Pendência</h2>
+                <p class="pendency-summary">Pedidos pendentes: <strong id="pendency-count">0</strong> — <span id="pendency-percent">0%</span></p>
+                <div class="pendency-bar" aria-hidden="true">
+                    <div class="pendency-fill" id="pendency-fill" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="filters">
+                <label for="status-filter">Filtrar status:</label>
+                <select id="status-filter">
+                    <option value="all">Todos</option>
+                    <option value="pending">Pendentes</option>
+                    <option value="overdue">Atrasados</option>
+                    <option value="completed">Concluídos</option>
+                </select>
+
+                <label for="search-input" class="sr-only">Pesquisar</label>
+                <input type="search" id="search-input" placeholder="Pesquisar por ordem, cliente ou peça" />
+            </div>
+        </section>
+
+        <!-- Orders table -->
+        <section class="orders-section">
+            <div class="table-wrapper" id="orders-table-wrapper">
+                <!-- The table will be rendered here by your JS -->
+                <table class="orders-table" id="orders-table" role="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Produto</th>
+                            <th>Quantidade</th>
+                            <th>Data Criação</th>
+                            <th>Prazo</th>
+                            <th>Dias Restantes</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="empty-row">
+                            <td colspan="9">Nenhum pedido cadastrado ainda.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Note for JS implementer -->
+        <section class="notes">
+            <small>Observação: IDs úteis para integração JS — <code>total-count</code>, <code>pending-count</code>, <code>overdue-count</code>, <code>completed-count</code>, <code>orders-table</code>, <code>status-filter</code>, <code>search-input</code>.</small>
+        </section>
     </main>
 </body>
 
