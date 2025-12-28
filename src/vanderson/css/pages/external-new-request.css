@@ -1,0 +1,181 @@
+/* New Request Page Styles */
+
+.new-request-page {
+  padding: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Header (reaproveita padrão) */
+.external-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--vw-gray-200);
+  margin-bottom: 24px;
+}
+
+.page-title {
+  font-size: 1.25rem;
+  margin: 0;
+  color: var(--vw-gray-900);
+}
+
+/* ===== FORM ===== */
+
+form#newRequestForm {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Sections */
+.form-section {
+  background: var(--vw-white, #fff);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+
+.form-section h2 {
+  margin: 0 0 16px 0;
+  font-size: 1rem;
+  color: var(--vw-gray-800);
+}
+
+/* ===== INPUT GROUPS ===== */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--vw-gray-700);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--input-border);
+  background: var(--vw-white);
+  font-size: 0.9rem;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--vw-blue-500);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+/* ===== SWITCH (SIM / NÃO) ===== */
+
+.form-switch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--vw-gray-100);
+}
+
+.form-switch:last-child {
+  border-bottom: none;
+}
+
+.form-switch label {
+  font-size: 0.9rem;
+  color: var(--vw-gray-700);
+}
+
+/* simple checkbox as switch base */
+.form-switch input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+/* ===== CHECKBOX GROUP ===== */
+
+.form-checkbox {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.form-checkbox label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--vw-gray-700);
+}
+
+/* ===== ACTIONS ===== */
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+/* Buttons */
+.btn {
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.btn--primary {
+  background: var(--vw-blue-600);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background: var(--vw-blue-700);
+}
+
+.btn--secondary {
+  background: var(--vw-white);
+  color: var(--vw-gray-700);
+  border: 1px solid var(--vw-gray-300);
+}
+
+.btn--secondary:hover {
+  background: var(--vw-gray-50);
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+  .new-request-page {
+    padding: 16px;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
