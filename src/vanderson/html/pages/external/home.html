@@ -19,8 +19,8 @@
         // Vincula a função ao botão 
         const btn = document.getElementById('internSignOutButton');
         btn.addEventListener('click', (e) => {
-            alert: "Logout process if.";
-            logout(e);
+            e.preventDefault();
+            logout();
         });
     </script>
 
@@ -85,7 +85,7 @@
             <div class="pendency-info">
                 <h2>Pendência</h2>
                 <p class="pendency-summary">Pedidos pendentes: <strong id="pendency-count">0</strong> — <span
-                        id="pendency-percent">30%</span></p>
+                        id="pendency-percent">0%</span></p>
                 <div class="pendency-bar" aria-hidden="true">
                     <div class="pendency-fill" id="pendency-fill" style="width: 0%"></div>
                 </div>
